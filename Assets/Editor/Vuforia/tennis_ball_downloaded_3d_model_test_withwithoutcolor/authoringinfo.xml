@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QCARInfo>
+    <TargetSet version="36.0" toolVersion="v7.2.0">
+        <ModelTarget name="tennis_ball_downloaded_3d_model_test" targetId="d5276f62a8f2466aad9e20f5e397305c" version="14.0" toolVersion="v7.2.0" bbox="-0.057791 -0.057791 -0.057791 0.057791 0.057791 0.057791" trackingMode="car" upVector="0.0 1.0 0.0" optimizeTrackingFor="default" realisticTextures="no" />
+    </TargetSet>
+    <Assembly name="tennis_ball_downloaded_3d_model_test" assemblyId="400abf137fe14d8f87ac5c7c10002259">
+        <Part name="tennis_ball_downloaded_3d_model_test" translation="0 0 0" rotation="AD: 0 0 1 0" />
+        <EntryPoint name="(none)" trained="yes" />
+    </Assembly>
+</QCARInfo>
