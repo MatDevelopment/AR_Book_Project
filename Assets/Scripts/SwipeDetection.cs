@@ -74,7 +74,7 @@ public class SwipeDetection : MonoBehaviour
         GameObject tennisBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         tennisBall.AddComponent<Rigidbody>();
         tennisBall.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 1.3f;
-        Vector3 direction = endPosition - startPosition + mainCamera.transform.forward * 1.3f;
+        Vector3 direction = endPosition - startPosition;
         tennisBall.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         tennisBall.GetComponent<Rigidbody>().AddForce(direction.normalized * 4, ForceMode.Impulse);
     }
