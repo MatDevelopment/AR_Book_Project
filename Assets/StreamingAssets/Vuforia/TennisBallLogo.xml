@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
   <Tracking>
+    <ImageTarget name="side1-qr-code" size="1.000000 1.000000" />
+    <ImageTarget name="bot-qr-code" size="1.000000 1.000000" />
+    <ImageTarget name="side4-qr-code" size="1.000000 1.000000" />
+    <ImageTarget name="side3-qr-code" size="1.000000 1.000000" />
+    <ImageTarget name="side2-qr-code" size="1.000000 1.000000" />
+    <ImageTarget name="top-qr-code" size="1.000000 1.000000" />
     <ImageTarget name="balllogocutout" size="0.800000 0.826306" />
   </Tracking>
 </QCARConfig>
