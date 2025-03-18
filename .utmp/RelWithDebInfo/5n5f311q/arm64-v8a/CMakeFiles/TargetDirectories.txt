@@ -1,0 +1,5 @@
+C:/Users/rasmu/Documents/GitHub/AR_Book_Project/.utmp/RelWithDebInfo/5n5f311q/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/rasmu/Documents/GitHub/AR_Book_Project/.utmp/RelWithDebInfo/5n5f311q/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/rasmu/Documents/GitHub/AR_Book_Project/.utmp/RelWithDebInfo/5n5f311q/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/rasmu/Documents/GitHub/AR_Book_Project/.utmp/RelWithDebInfo/5n5f311q/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/rasmu/Documents/GitHub/AR_Book_Project/.utmp/RelWithDebInfo/5n5f311q/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
