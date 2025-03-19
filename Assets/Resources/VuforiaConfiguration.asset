@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vuforia:
     vuforiaLicenseKey: AfOIykj/////AAABmVoSNQwjWU4Qg6O7tjUoxE10jsQquw7uD4xYOv/AF7gMf4ooSSmlFl5r8qOkIVmnRjEaU9Bb6MjrAyIGJhHBAi46h4OSzKsKt/ZLlkyyAAet/rLMOomsoVhP1MHJBsRO1nxyodvkWsvF+mODL0x/55OY7u+NzmWxDdKkWP9MSAxWCNsr/xsMhBUOmOzcDTmLIo/3XkOyIphLAoeVoXnmgAQsrj+7VDXmns2IX78f5F8PtlL0ZrPnkTT+DjKsVv9NB8se5ErEU414rBEbRluIJ+/vggnsOdFlIqELweU8AhUssen+pEaj4g/YS1rnflIn7Kqg1E/lokR2ksxGuvyd90vpQj2ddEjT15TW24yf1Ihw
-    ufoLicenseKey: QVMxYVdJRC8vLy8vQUFBQUtIc3g1cEJUKzBYSnVpZmphdlBWRHNnN1ZqSDlrajZpM3VrcXNaZmlqa2RzbnB5ZG9zU3JCTWNsdzY3bzk5alAybmxFRkF6WFBWUWdNZnVNYTVjaVUxcnZXV1dRRGZ2d3d3VndmeTlCK3A2SlpVMnAwUExwdXpGcHBYMGR0VmZuN2NXNjg5QkZUK01vc1l5VE9pK0t6Qk1GYW1rbXdEZStlcTdOeVFzYWllMUk5eDBBYkVOc3VvWTZVUWZ4a3M2K0MxT2N6cWpoeUlLNVRFeXNTWnNEa3BVcTN5ek8xbGRYQzY3L2RGTTZ2WWxHYkVNTGNOcXFha0pOb2o5UTFRMWUybmRRRWxHTlo2c251c2NNTE5HU3p4Ym5yTU1xYkpIVDllS3oxVTE2TjNHcmI5L0h5a2d6REVEK0E1WVJjOHBnOVA4TGdLT1ZyMm03cUxRNC9jcjZMZERJdVUyTm4ycFRpZDlab1ZMTWRXRUE=
+    ufoLicenseKey: QVhiM0Y1Ly8vLy8vQUFBQUtPbnFIeHJFSGs1N3VrMlg4U050eVBzK2pkOFZxMDhrazlwYjBsYS9aZUIxQlV1ckZWcWt0ZllSQWpnT2tIRlY2VzdOMDRTRjNYRUhmbTF5L1BnYlB4eWdHWEF6RUNheXowc3dyNVNYa2ozdERuRjhka1FpOHRscHdkMDcrcEJEY1FjTjNJcUM1bEgwOTYzQkdZdjRsQStRb0hSQU9nRGthelp5TlY0WHVwWU9EaE05NWw5bXAzbnBDMjM5MWZBWXBFdEdiL2loTDNab3N4b25ZblhjK1JtSS9wLzRoTDIwVGhmTXR6WFJNYkpUTXZLZzJoQ0N0TEJXNEptZ0pSOUtSdStzQWM3QjVNOWFFMGVHQ1dUT1VRSUUweEpiZC9ZL2cvS29iNDhBRXdQOGFwbWR5NmRWU0FHU2psVzRZY2FEU2Zud3J1ZHhucVNmSUZiajNTUnIzM0lKVlFIaW1rL0oyOGNFeDdyekcySXg=
     delayedInitialization: 0
     cameraFocusModeSetting: 2
     cameraDeviceModeSetting: -1
-    maxSimultaneousImageTargets: 5
+    maxSimultaneousImageTargets: 1
     virtualSceneScaleFactor: 1
     modelTargetRecoWhileExtendedTracked: 1
     shareRecordingsInITunes: 0
     logLevel: 0
     version: 11.0.4
-    eulaAcceptedVersions: '{"Values":["","0.0","11.0"]}'
+    eulaAcceptedVersions: '{"Values":["0.0","11.0"]}'
   database:
     disableModelExtraction: 0
   plugins:
@@ -53,4 +53,4 @@ MonoBehaviour:
   webcam:
     renderTextureLayer: 30
   packageInformation:
-    ARFoundationVersion: 6.0.3
+    ARFoundationVersion: 
