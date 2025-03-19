@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SwipeDetection : MonoBehaviour
 {
-   private Gravity_InputManager inputManager;
+    private Gravity_InputManager inputManager;
 
     [SerializeField] // So we can access this private variable in the inspector
     private float minimumDistance = 0.2f;
@@ -40,7 +40,6 @@ public class SwipeDetection : MonoBehaviour
         startPosition = position;
         startTime = time;
         Debug.Log("SwipeStart");
-
     }
 
     private void SwipeEnd(Vector2 position, float time)
@@ -49,34 +48,34 @@ public class SwipeDetection : MonoBehaviour
         endTime = time;
         DetectSwipe();
         Debug.Log("SwipeEnd!");
-
     }
 
     private void DetectSwipe()
     {
-         float distance = Vector3.Distance(startPosition, endPosition);
-         float timeDifference = endTime - startTime;
+        float distance = Vector3.Distance(startPosition, endPosition);
+        float timeDifference = endTime - startTime;
 
+        float yDistance = endPosition.y - startPosition.y;
 
-            Debug.Log("Swipe detected-   distance: " + distance + "   timeDifference: " + timeDifference);
+        Debug.Log("Swipe detected-   distance: " + distance + "   timeDifference: " + timeDifference +  "     y Doistance: " + yDistance +"    y Doistance times: " + yDistance * 100);
+
         if (distance >= minimumDistance && timeDifference <= maximumTime)
         {
             Debug.DrawLine(startPosition, endPosition, Color.red, 5f);
-         
-            SpawnTennisBall();
-        }
 
-       
+            SpawnTennisBall(yDistance);
+        }
     }
 
-    private void SpawnTennisBall()
+    private void SpawnTennisBall(float yDistance)
     {
-        GameObject tennisBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        tennisBall.AddComponent<Rigidbody>();
+        float forwardStrength = yDistance * 100;
+
+        GameObject tennisBall = Instantiate(Resources.Load("LowPoly_TennisBall")) as GameObject;
         tennisBall.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 1.3f;
         Vector3 direction = endPosition - startPosition;
-        tennisBall.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        tennisBall.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         tennisBall.GetComponent<Rigidbody>().AddForce(direction.normalized * 4, ForceMode.Impulse);
+        tennisBall.GetComponent<Rigidbody>().AddForce(mainCamera.transform.forward * forwardStrength, ForceMode.Impulse);
     }
 }
-

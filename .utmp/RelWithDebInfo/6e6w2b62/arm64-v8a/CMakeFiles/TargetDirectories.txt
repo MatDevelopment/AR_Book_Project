@@ -1,0 +1,5 @@
+C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/.utmp/RelWithDebInfo/6e6w2b62/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/.utmp/RelWithDebInfo/6e6w2b62/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/.utmp/RelWithDebInfo/6e6w2b62/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/.utmp/RelWithDebInfo/6e6w2b62/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/.utmp/RelWithDebInfo/6e6w2b62/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

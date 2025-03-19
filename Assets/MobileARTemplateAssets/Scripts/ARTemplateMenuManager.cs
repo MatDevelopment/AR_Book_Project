@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,6 +25,11 @@ public class ARTemplateMenuManager : MonoBehaviour
     }
     [SerializeField]
     planetType m_planetType = planetType.Moon;
+
+    public TextMeshProUGUI gravityStrengthText;
+
+    [SerializeField]
+    private float gravityStrength = -1f;
 
     public GameObject trackablesParent;
 
@@ -361,7 +367,6 @@ public class ARTemplateMenuManager : MonoBehaviour
                 Debug.LogWarning("Object Spawner not configured correctly: object index larger than number of Object Prefabs.");
             }
         }
-
         HideMenu();
     }
 
@@ -370,14 +375,17 @@ public class ARTemplateMenuManager : MonoBehaviour
         if(m_planetType == planetType.Mars)
         {
             m_planetType = planetType.Moon;
-            
+            gravityStrength = -1.62f;
+            Physics.gravity = new Vector3(0, gravityStrength, 0);
         }
         else if (m_planetType == planetType.Moon)
         {
             m_planetType = planetType.Mars;
-           
+            gravityStrength = -3.71f;
+            Physics.gravity = new Vector3(0, gravityStrength, 0);
         }
 
+        gravityStrengthText.text = gravityStrength.ToString();
         ChangeMaterialsOnChildren();
     }
     void ChangeMaterialsOnChildren()

@@ -1,0 +1,19 @@
+# ninja log v5
+3394	3805	7639952923707433	C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6e6w2b62/obj/arm64-v8a/libgame.so	bd57417b0a26d946
+38	2216	7639952907898604	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	c304c799af7fd9f0
+1	2882	7639952913963435	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	bc69fd63258a4d58
+48	2381	7639952909070943	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	6ac4e09bb83a0e39
+59	2712	7639952912332198	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	5c719ed22668a824
+7	2397	7639952908765290	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8021be60915ecd64
+22	2472	7639952910136670	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	9eaa24eb859dd0b7
+30	3036	7639952915987706	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	36af6ef13f225b48
+15	3393	7639952919405474	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	ded704c2fbe8f113
+9	1161	7639986655624516	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	9eaa24eb859dd0b7
+33	1183	7639986655915754	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	c304c799af7fd9f0
+14	1187	7639986655875209	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8021be60915ecd64
+40	1206	7639986656284925	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	6ac4e09bb83a0e39
+47	1314	7639986657366221	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	5c719ed22668a824
+20	1347	7639986657703829	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	bc69fd63258a4d58
+26	1545	7639986659675902	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	36af6ef13f225b48
+3	1656	7639986660779808	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	ded704c2fbe8f113
+1657	1791	7639986662187044	C:/Users/Kanon/Documents/Local MED_8 things/Semester project/AR_Book_Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6e6w2b62/obj/arm64-v8a/libgame.so	bd57417b0a26d946

@@ -13,48 +13,48 @@ public class Gravity_InputManager : Singleton<Gravity_InputManager>
     public event EndTouch OnEndTouch;
     #endregion
 
-    private Gravity_InputActions _gravity_InputActions;
+    private XRIDefaultInputActions xriDefaultActions;
     private Camera mainCamera;
 
     private void Awake()
     {
-        _gravity_InputActions = new Gravity_InputActions();
+        xriDefaultActions = new XRIDefaultInputActions();
         mainCamera = Camera.main;
     }
 
     private void OnEnable()
     {
-        _gravity_InputActions.Enable();
+        xriDefaultActions.Enable();
     }
 
     private void OnDisable()
     {
-        _gravity_InputActions.Disable();
+        xriDefaultActions.Disable();
     }
 
     void Start()
     {
         //Subscribing to events
-        _gravity_InputActions.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
-        _gravity_InputActions.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
+        xriDefaultActions.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
+        xriDefaultActions.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
 
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
-        if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, _gravity_InputActions.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
+        if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, xriDefaultActions.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
         Debug.Log("StartTouchPrimary");
     }
 
     private void EndTouchPrimary(InputAction.CallbackContext context)
     {
-        if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, _gravity_InputActions.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
+        if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, xriDefaultActions.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
         Debug.Log("EndTouchPrimary");
 
     }
 
     public Vector2 PrimaryPostition()
     {
-        return Utils.ScreenToWorld(mainCamera, _gravity_InputActions.Touch.PrimaryPosition.ReadValue<Vector2>());
+        return Utils.ScreenToWorld(mainCamera, xriDefaultActions.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
 
 }
