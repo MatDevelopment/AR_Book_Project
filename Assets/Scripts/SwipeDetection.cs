@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class SwipeDetection : MonoBehaviour
@@ -15,6 +16,11 @@ public class SwipeDetection : MonoBehaviour
     private float startTime;
     private Vector2 endPosition;
     private float endTime;
+
+
+    public TextMeshProUGUI gravityStrengthText;
+    //gravityStrengthText.text = gravityStrength.ToString();
+
 
     private Camera mainCamera;
     private void Awake()

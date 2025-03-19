@@ -26,8 +26,6 @@ public class ARTemplateMenuManager : MonoBehaviour
     [SerializeField]
     planetType m_planetType = planetType.Moon;
 
-    public TextMeshProUGUI gravityStrengthText;
-
     [SerializeField]
     private float gravityStrength = -1f;
 
@@ -385,7 +383,6 @@ public class ARTemplateMenuManager : MonoBehaviour
             Physics.gravity = new Vector3(0, gravityStrength, 0);
         }
 
-        gravityStrengthText.text = gravityStrength.ToString();
         ChangeMaterialsOnChildren();
     }
     void ChangeMaterialsOnChildren()
