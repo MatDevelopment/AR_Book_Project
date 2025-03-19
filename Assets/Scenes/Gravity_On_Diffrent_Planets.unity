@@ -5616,6 +5616,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumDistance: 0.001
   maximumTime: 1
+  m_moonMaterial: {fileID: 2100000, guid: 3093cbb04c8a6f949bf766312d3eb5de, type: 2}
+  marsMaterial: {fileID: 2100000, guid: c17f6009ede5fc246b20d95506093083, type: 2}
+  gravityStrengthText: {fileID: 1847167453}
+  m_planetType: 1
+  gravityStrength: -1
+  trackablesParent: {fileID: 0}
+  m_PlanetButton: {fileID: 1909807112}
 --- !u!114 &1198442955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9268,14 +9275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708c04c3dca17f4dbdc065df6a0c397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_planetType: 1
-  gravityStrengthText: {fileID: 1847167453}
-  gravityStrength: -1
   trackablesParent: {fileID: 0}
-  m_moonMaterial: {fileID: 2100000, guid: 3093cbb04c8a6f949bf766312d3eb5de, type: 2}
-  marsMaterial: {fileID: 2100000, guid: c17f6009ede5fc246b20d95506093083, type: 2}
   m_CreateButton: {fileID: 1059051469}
-  m_PlanetButton: {fileID: 1909807112}
   m_DeleteButton: {fileID: 425410338}
   m_ObjectMenu: {fileID: 72989974}
   m_ModalMenu: {fileID: 846084843}

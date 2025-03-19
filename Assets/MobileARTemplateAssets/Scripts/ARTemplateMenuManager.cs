@@ -17,27 +17,10 @@ using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 public class ARTemplateMenuManager : MonoBehaviour
 {
 
-    enum planetType
-    {
-        Earth,
-        Moon,
-        Mars
-    }
-    [SerializeField]
-    planetType m_planetType = planetType.Moon;
-
-    [SerializeField]
-    private float gravityStrength = -1f;
 
     public GameObject trackablesParent;
 
-    [SerializeField]
-    [Tooltip("Material for the moon surface")]
-    Material m_moonMaterial;
-
-    [SerializeField]
-    [Tooltip("Material for the mars surface")]
-    Material marsMaterial;
+    
 
     [SerializeField]
     [Tooltip("Button that opens the create menu.")]
@@ -46,22 +29,11 @@ public class ARTemplateMenuManager : MonoBehaviour
 
     public Button createButton
     {
-        get => m_PlanetButton;
+        get => m_CreateButton;
         set => m_CreateButton = value;
     }
 
-    [SerializeField]
-    [Tooltip("Button that changes the planet.")]
-    Button m_PlanetButton;
-
-    /// <summary>
-    /// Button that opens the create menu.
-    /// </summary>
-    public Button planetButton
-    {
-        get => m_PlanetButton;
-        set => m_PlanetButton = value;
-    }
+ 
 
     [SerializeField]
     [Tooltip("Button that deletes a selected object.")]
@@ -260,7 +232,7 @@ public class ARTemplateMenuManager : MonoBehaviour
     {
       
         m_CreateButton.onClick.AddListener(ShowMenu);
-        m_PlanetButton.onClick.AddListener(ChangePlanet);
+
         m_CancelButton.onClick.AddListener(HideMenu);
         m_DeleteButton.onClick.AddListener(DeleteFocusedObject);
         m_PlaneManager.trackablesChanged.AddListener(OnPlaneChanged);
@@ -273,7 +245,6 @@ public class ARTemplateMenuManager : MonoBehaviour
     {
         m_ShowObjectMenu = false;
         m_CreateButton.onClick.RemoveListener(ShowMenu);
-        m_PlanetButton.onClick.RemoveListener(ChangePlanet);
         m_CancelButton.onClick.RemoveListener(HideMenu);
         m_DeleteButton.onClick.RemoveListener(DeleteFocusedObject);
         m_PlaneManager.trackablesChanged.RemoveListener(OnPlaneChanged);
@@ -294,7 +265,7 @@ public class ARTemplateMenuManager : MonoBehaviour
         HideMenu();
         m_PlaneManager.planePrefab = m_DebugPlane;
 
-        m_PlanetButton.gameObject.SetActive(true);
+
     }
 
     /// <summary>
@@ -368,49 +339,7 @@ public class ARTemplateMenuManager : MonoBehaviour
         HideMenu();
     }
 
-    void ChangePlanet()
-    {
-        if(m_planetType == planetType.Mars)
-        {
-            m_planetType = planetType.Moon;
-            gravityStrength = -1.62f;
-            Physics.gravity = new Vector3(0, gravityStrength, 0);
-        }
-        else if (m_planetType == planetType.Moon)
-        {
-            m_planetType = planetType.Mars;
-            gravityStrength = -3.71f;
-            Physics.gravity = new Vector3(0, gravityStrength, 0);
-        }
-
-        ChangeMaterialsOnChildren();
-    }
-    void ChangeMaterialsOnChildren()
-    {
-        if(trackablesParent == null || trackablesParent.transform.childCount == 0)
-        {
-            Debug.LogWarning("No children found in the trackables parent. Cannot change materials.");
-            return;
-        }
-        foreach (Transform child in trackablesParent.transform)
-        {
-            if (child.gameObject.TryGetComponent<Renderer>(out var renderer))
-            {
-                if (m_planetType == planetType.Mars)
-                {
-                    renderer.material = marsMaterial;
-                }
-                else if (m_planetType == planetType.Moon)
-                {
-                    renderer.material = m_moonMaterial;
-                }
-                //else
-                //{
-                //    renderer.material = m_earthMaterial;
-                //}
-            }
-        }
-    }
+    
 
     void ShowMenu()
     {
