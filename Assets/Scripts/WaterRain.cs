@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaterRain : MonoBehaviour
 {
@@ -23,6 +24,18 @@ public class WaterRain : MonoBehaviour
         if (!isRaining)
         {
             StartCoroutine(RainEffect());
+        }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        if (MainMenuManager.Instance != null)
+        {
+            MainMenuManager.Instance.LoadMainMenu();
+        }
+        else
+        {
+            Debug.LogWarning("MainMenuManager instance not found!");
         }
     }
 

@@ -122,7 +122,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightFrequency: 0.05
+    - _HeightFrequency: 0.4
     - _Metallic: 0
     - _NormalStrength: 0.5
     - _OcclusionStrength: 1
@@ -140,8 +140,8 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _WaterDepth: 0.2
-    - _WaveAmplitude: 0.05
-    - _WaveSpeed: 1
+    - _WaveAmplitude: 0.02
+    - _WaveSpeed: 1.5
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
