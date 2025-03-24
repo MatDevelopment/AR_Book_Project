@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.XR;
+//using System.Security.Cryptography;
+//using UnityEditor.Rendering;
 
 public class WaterCollision : MonoBehaviour
 {
@@ -64,10 +66,15 @@ public class WaterCollision : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("waterSphere") && waterInitiated)
         {
+            Rigidbody rb1 = GetComponent<Rigidbody>();
+            Rigidbody rb2 = other.gameObject.GetComponent<Rigidbody>();
+
             // To avoid having both sphere spawn a new one we check the others script if it has started
             if (!other.gameObject.GetComponent<WaterCollision>().collidedWithWater)
             {
                 collidedWithWater = true;
+
+                Vector3 combinedVelocity = rb1.linearVelocity + rb2.linearVelocity;
 
                 rainManager.score += 1;
                 rainManager.scoreText.text = rainManager.score.ToString();
@@ -75,6 +82,12 @@ public class WaterCollision : MonoBehaviour
                 // When two water droplets collide they form one bigger water
                 GameObject newWaterCombined = Instantiate(waterSphere, other.GetContact(0).point, transform.rotation);
                 newWaterCombined.transform.localScale = gameObject.transform.localScale + other.gameObject.transform.localScale;
+                Rigidbody newRb = newWaterCombined.GetComponent<Rigidbody>();
+
+                if (newRb != null)
+                {
+                    newRb.linearVelocity = combinedVelocity;
+                }
 
                 // Destroy both old smaller droplets
                 Destroy(other.gameObject);

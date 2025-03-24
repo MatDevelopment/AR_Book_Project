@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AR_ballshooter.unity
     guid: 7bdc44190c507544d86435378d9d7be8
+  - enabled: 1
+    path: Assets/Scenes/RoverScene.unity
+    guid: 0647d7bc4a2469544ad557bba3741d6a
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 4755b35b590504809a7525fd2109c2e2
