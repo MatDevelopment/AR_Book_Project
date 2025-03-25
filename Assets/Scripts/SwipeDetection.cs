@@ -178,19 +178,6 @@ public class SwipeDetection : MonoBehaviour
     //    }
     //}
 
-    private void SwipeStart(Vector2 position, float time)
-    {
-        startPosition = position;
-        startTime = time;
-    }
-
-    private void SwipeEnd(Vector2 position, float time)
-    {
-        endPosition = position;
-        endTime = time;
-        DetectSwipe();
-    }
-
     void ChangePlanet()
     {
         if (m_planetType == planetType.Mars)
@@ -248,6 +235,22 @@ public class SwipeDetection : MonoBehaviour
     {
         sideStrengthMultiplier = input;
     }
+    private void SwipeStart(Vector2 position, float time)
+    {
+        startPosition = position;
+        Debug.Log("startPosition: " + position);
+        startTime = time;
+    }
+
+    private void SwipeEnd(Vector2 position, float time)
+    {
+        endPosition = position;
+        Debug.Log("endPosition: " + position);
+
+        endTime = time;
+        DetectSwipe();
+    }
+
     private void DetectSwipe()
     {
         float distance = Vector3.Distance(startPosition, endPosition);
@@ -302,24 +305,33 @@ public class SwipeDetection : MonoBehaviour
 
     private void SpawnTennisBall(float yDistance, float timeDifference)
     {
-            //float forwardStrength = yDistance * 100;
-            float throwSpeed = CalculateThrowStrength(yDistance, timeDifference);
-            float upSpeed = CalculateUpStrength(yDistance, timeDifference);
+        float throwSpeed = CalculateThrowStrength(yDistance, timeDifference);
+        float upSpeed = CalculateUpStrength(yDistance, timeDifference);
 
-            GameObject tennisBall = Instantiate(Resources.Load("LowPoly_TennisBall")) as GameObject;
-            tennisBall.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 0.5f + mainCamera.transform.up * -0.1f;
-            Vector3 direction = (endPosition - startPosition).normalized;
-            tennisBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            //direction.y *= 0.8f;
-            Debug.Log("direction1  vector" + direction);
-            //direction.x *= sideStrengthMultiplier;
-            direction.x *= sideStrengthMultiplier;
-            Debug.Log("direction2  vector" + direction);
+        GameObject tennisBall = Instantiate(Resources.Load("LowPoly_TennisBall")) as GameObject;
 
-            tennisBall.GetComponent<Rigidbody>().AddForce(direction.normalized, ForceMode.Impulse);
-            tennisBall.GetComponent<Rigidbody>().AddForce(Vector3.up * upSpeed, ForceMode.Impulse);
+        // Position the ball relative to the camera.
+        tennisBall.transform.position = mainCamera.transform.position +
+                                          mainCamera.transform.forward * 0.4f +
+                                          mainCamera.transform.up * -0.2f;
+        tennisBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
-            tennisBall.GetComponent<Rigidbody>().AddForce(mainCamera.transform.forward * throwSpeed, ForceMode.Impulse);
-    
+        Rigidbody ballRigidbody = tennisBall.GetComponent<Rigidbody>();
+
+        // Calculate the world-space swipe direction.
+        Vector2 swipeDirection = (startPosition - endPosition).normalized;
+        Debug.Log("swipeDirection: " + swipeDirection + "  sX:" + startPosition.x + "  eX:" + endPosition.x);
+
+        // Combine the throw directions:
+        // - Use the camera's forward direction multiplied by the calculated throw speed.
+        // - Add the swipe direction multiplied by the side strength multiplier.
+        // - Add an upward component.
+        Vector3 finalThrowDirection =
+            mainCamera.transform.forward * throwSpeed +
+            mainCamera.transform.right * (swipeDirection.x * sideStrengthMultiplier) +
+            Vector3.up * upSpeed;
+
+        // Apply the combined force.
+        ballRigidbody.AddForce(finalThrowDirection, ForceMode.Impulse);
     }
 }

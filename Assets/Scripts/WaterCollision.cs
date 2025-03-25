@@ -37,7 +37,7 @@ public class WaterCollision : MonoBehaviour
             Debug.Log($"A collider has made contact with the water wit a speed of: {other.relativeVelocity.magnitude}");
             
             rainManager.score += 1;
-            rainManager.scoreText.text = rainManager.score.ToString();
+            rainManager.scoreText.text = "Vand ramt" + rainManager.score.ToString();
 
             if (other.relativeVelocity.magnitude > 2)
             {
