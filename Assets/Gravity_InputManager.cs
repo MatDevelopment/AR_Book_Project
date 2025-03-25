@@ -42,13 +42,12 @@ public class Gravity_InputManager : Singleton<Gravity_InputManager>
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
         if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, xriDefaultActions.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
-        Debug.Log("StartTouchPrimary");
     }
 
     private void EndTouchPrimary(InputAction.CallbackContext context)
     {
         if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, xriDefaultActions.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
-        Debug.Log("EndTouchPrimary");
+     
 
     }
 

@@ -55,6 +55,7 @@ public class SwipeDetection : MonoBehaviour
     {
         mainCamera = Camera.main;
         inputManager = Gravity_InputManager.Instance;
+
     }
 
     public Button m_PlanetButton;
@@ -84,16 +85,16 @@ public class SwipeDetection : MonoBehaviour
 
     public Slider m_MultiplierSliderSide;
 
-    public Button m_ModeButton;
+    //public Button m_ModeButton;
 
-    /// <summary>
-    /// Button that opens the create menu.
-    /// </summary>
-    public Button m_modeButton
-    {
-        get => m_ModeButton;
-        set => m_ModeButton = value;
-    }
+    ///// <summary>
+    ///// Button that opens the create menu.
+    ///// </summary>
+    //public Button m_modeButton
+    //{
+    //    get => m_ModeButton;
+    //    set => m_ModeButton = value;
+    //}
 
     private void Update()
     {
@@ -130,7 +131,12 @@ public class SwipeDetection : MonoBehaviour
     {
         trackablesParent = GameObject.Find("Trackables");
         m_PlanetButton.gameObject.SetActive(true);
-        m_ModeButton.gameObject.SetActive(true);
+        //m_ModeButton.gameObject.SetActive(true);
+
+        gravityStrength = -1.62f;
+        Physics.gravity = new Vector3(0, gravityStrength, 0);
+        gravityStrengthText.text = gravityStrength.ToString();
+
     }
 
 
@@ -139,7 +145,7 @@ public class SwipeDetection : MonoBehaviour
         inputManager.OnStartTouch += SwipeStart;
         inputManager.OnEndTouch += SwipeEnd;
         m_PlanetButton.onClick.AddListener(ChangePlanet);
-        m_ModeButton.onClick.AddListener(ChangeMode);
+        //m_ModeButton.onClick.AddListener(ChangeMode);
         m_MultiplierSlider.onValueChanged.AddListener(SetMultiplierValue);
         m_MultiplierSliderUp.onValueChanged.AddListener(SetMultiplierUpValue);
         m_MultiplierSliderSide.onValueChanged.AddListener(SetMultiplierSideValue);
@@ -151,26 +157,27 @@ public class SwipeDetection : MonoBehaviour
         inputManager.OnStartTouch -= SwipeStart;
         inputManager.OnEndTouch -= SwipeEnd;
         m_PlanetButton.onClick.RemoveListener(ChangePlanet);
-        m_ModeButton.onClick.RemoveListener(ChangeMode);
+        //m_ModeButton.onClick.RemoveListener(ChangeMode);
         m_MultiplierSlider.onValueChanged.RemoveListener(SetMultiplierValue);
         m_MultiplierSliderUp.onValueChanged.RemoveListener(SetMultiplierUpValue);
         m_MultiplierSliderSide.onValueChanged.RemoveListener(SetMultiplierSideValue);
 
     }
 
-    private void ChangeMode()
-    {
-        if (mode2Enabled)
-        {
-            mode2Enabled = false;
-            text_mode.text = "Mode 1";
-        }
-        else
-        {
-            mode2Enabled = true;
-            text_mode.text = "Mode 2";
-        }
-    }
+    //private void ChangeMode()
+    //{
+    //    if (mode2Enabled)
+    //    {
+    //        mode2Enabled = false;
+    //        text_mode.text = "Mode 1";
+    //    }
+    //    else
+    //    {
+    //        mode2Enabled = true;
+    //        text_mode.text = "Mode 2";
+    //    }
+    //}
+
     private void SwipeStart(Vector2 position, float time)
     {
         startPosition = position;
@@ -295,14 +302,12 @@ public class SwipeDetection : MonoBehaviour
 
     private void SpawnTennisBall(float yDistance, float timeDifference)
     {
-        if (mode2Enabled)
-        {
             //float forwardStrength = yDistance * 100;
             float throwSpeed = CalculateThrowStrength(yDistance, timeDifference);
             float upSpeed = CalculateUpStrength(yDistance, timeDifference);
 
             GameObject tennisBall = Instantiate(Resources.Load("LowPoly_TennisBall")) as GameObject;
-            tennisBall.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 1.3f;
+            tennisBall.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 0.5f + mainCamera.transform.up * -0.1f;
             Vector3 direction = (endPosition - startPosition).normalized;
             tennisBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             //direction.y *= 0.8f;
@@ -315,24 +320,6 @@ public class SwipeDetection : MonoBehaviour
             tennisBall.GetComponent<Rigidbody>().AddForce(Vector3.up * upSpeed, ForceMode.Impulse);
 
             tennisBall.GetComponent<Rigidbody>().AddForce(mainCamera.transform.forward * throwSpeed, ForceMode.Impulse);
-        }
-        else
-        {
-            float forwardStrength = yDistance * (throwStrengthMultiplier * 10f);
-            float upSpeed = yDistance * (upStrengthMultiplier * 10f);
-
-            GameObject tennisBall = Instantiate(Resources.Load("LowPoly_TennisBall")) as GameObject;
-            tennisBall.transform.position = mainCamera.transform.position + mainCamera.transform.forward * 1.3f;
-            Vector3 direction = endPosition - startPosition;
-            //direction.y *= 0.8f;
-            Debug.Log("direction  vector" + direction);
-
-            direction.x *= sideStrengthMultiplier;
-            tennisBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            tennisBall.GetComponent<Rigidbody>().AddForce(direction.normalized, ForceMode.Impulse);
-            tennisBall.GetComponent<Rigidbody>().AddForce(Vector3.up * upSpeed, ForceMode.Impulse);
-
-            tennisBall.GetComponent<Rigidbody>().AddForce(mainCamera.transform.forward * forwardStrength, ForceMode.Impulse);
-        }
+    
     }
 }
