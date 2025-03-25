@@ -1,0 +1,22 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "TouchActions",
+            "id": "4c225a5e-5498-44cf-ae32-aeed2a575a6f",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Value",
+                    "id": "8fb0407c-c963-479e-a9df-b7754cf207b5",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": []
+        }
+    ],
+    "controlSchemes": []
+}

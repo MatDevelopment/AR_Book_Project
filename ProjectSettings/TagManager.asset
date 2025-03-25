@@ -6,6 +6,7 @@ TagManager:
   tags:
   - paddle
   - waterSphere
+  - Clickable
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Planet
+  - Star
   - 
   - 
   - 
