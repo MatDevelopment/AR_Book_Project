@@ -1,0 +1,76 @@
+{
+    "name": "RocketInput",
+    "maps": [
+        {
+            "name": "Rocket",
+            "id": "68a2d1b3-2161-4d64-8905-26d9802a1aca",
+            "actions": [
+                {
+                    "name": "Left Click",
+                    "type": "Button",
+                    "id": "5e244956-ce99-439c-8ad7-02f2e693a425",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Look",
+                    "type": "Value",
+                    "id": "7f805e64-6863-40e3-9f44-cbba73279404",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e28d1796-884e-4527-ba24-8661a86f7c6e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a070f57-0706-479a-98a4-6909f4b557c0",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2351ab75-ba34-4762-bc20-512d571532b9",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0bfd6ec-cd75-427e-b1bc-0d5b5b72b528",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

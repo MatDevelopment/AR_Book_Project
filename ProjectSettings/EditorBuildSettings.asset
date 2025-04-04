@@ -6,21 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/RocketScene.unity
+    guid: d2528e6f4e2e40d4184f9d7554dfb1b6
+  - enabled: 0
     path: Assets/Scenes/MenuScene.unity
     guid: cf3c795d365952f4fa50b86954b5d833
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WaterScene.unity
     guid: 7f400a4990ff7ee44a49c5e3d7797fa1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Gravity_On_Diffrent_Planets.unity
     guid: 047e878211505b649997c6425d257706
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlanetsAndStars.unity
     guid: 7bdc44190c507544d86435378d9d7be8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RoverScene.unity
     guid: 0647d7bc4a2469544ad557bba3741d6a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BigBang.unity
     guid: 6de73f8a2dc496042adff4bf078822f6
   - enabled: 0

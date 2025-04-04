@@ -7,6 +7,7 @@ TagManager:
   - paddle
   - waterSphere
   - Clickable
+  - Earth
   layers:
   - Default
   - TransparentFX
