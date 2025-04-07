@@ -85,11 +85,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 518acedc28825384e9088577163061b0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8931900419717809106}
+      addedObject: {fileID: 752540711852454296}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 518acedc28825384e9088577163061b0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 752540711852454296}
+      addedObject: {fileID: 8931900419717809106}
   m_SourcePrefab: {fileID: 100100000, guid: 518acedc28825384e9088577163061b0, type: 3}
 --- !u!1 &2436697585599352781 stripped
 GameObject:
@@ -97,6 +97,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3247528929132458652}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &752540711852454296
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2436697585599352781}
+  m_Material: {fileID: 13400000, guid: 6f23eaf94468f644da28b984ae3c1843, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.7273169, y: 2.1325567, z: 4.142281}
+  m_Center: {x: -0.010217905, y: 1.0667192, z: 0.26706004}
 --- !u!54 &8931900419717809106
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -124,24 +145,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &752540711852454296
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2436697585599352781}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.7273169, y: 2.1325567, z: 4.142281}
-  m_Center: {x: -0.010217905, y: 1.0667192, z: 0.26706004}
