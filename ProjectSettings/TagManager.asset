@@ -8,6 +8,7 @@ TagManager:
   - waterSphere
   - Clickable
   - Earth
+  - MarsEvent
   layers:
   - Default
   - TransparentFX
