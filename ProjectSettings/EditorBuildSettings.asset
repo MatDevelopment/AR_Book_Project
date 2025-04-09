@@ -20,10 +20,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PlanetsAndStars.unity
     guid: 7bdc44190c507544d86435378d9d7be8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/RoverScene.unity
     guid: 0647d7bc4a2469544ad557bba3741d6a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BigBang.unity
     guid: 6de73f8a2dc496042adff4bf078822f6
   - enabled: 0

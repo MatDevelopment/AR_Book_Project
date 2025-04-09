@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Theme.Primitives;
 
 public class RoverControl : MonoBehaviour
 {
@@ -15,6 +14,8 @@ public class RoverControl : MonoBehaviour
     public GameObject spawnButton;
     public GameObject despawnButton;
     public GameObject interactButton;
+    public GameObject eventPanel;
+    private RoverRockCrushing roverRockCrushing;
 
     [Header("Movement")]
     public Rigidbody roverRB;
@@ -47,12 +48,15 @@ public class RoverControl : MonoBehaviour
     private GameObject[] allObjectsWithTag;
     private GameObject nearestObject;
 
-
     private void Start()
     {
         spawnButton.SetActive(true);
         despawnButton.SetActive(false);
         interactButton.SetActive(false);
+        eventPanel.SetActive(false);
+
+        // Accessing rockcrushing script
+        roverRockCrushing = eventPanel.GetComponent<RoverRockCrushing>();
 
         // Set gravity to mars
         Physics.gravity = new Vector3(0, -3.73f, 0);
@@ -227,8 +231,18 @@ public class RoverControl : MonoBehaviour
     // Function for the button call when interacting with an event
     public void InteractWithEvent()
     {
+        // Remove and Update list of objects
         nearestObject.SetActive(false);
-        //Destroy(nearestObject);
         UpdateListOfRoverEvents();
+
+        // Show Event UI
+        eventPanel.SetActive(true);
+        roverRockCrushing.ResetRockCrushing();
+    }
+
+    public void FinishMarsEvent()
+    {
+        // Hide Event UI
+        eventPanel.SetActive(false);
     }
 }
