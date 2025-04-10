@@ -6,8 +6,15 @@ using UnityEngine;
 [System.Serializable]
 public class Artifact
 {
+    // Based on the finding of the mars rovers:
+    // https://science.nasa.gov/mission/mars-2020-perseverance/mars-rock-samples/
+    // https://science.nasa.gov/mission/msl-curiosity/science-highlights/
+    // https://science.nasa.gov/missions/mars-science-laboratory/nasas-curiosity-rover-detects-largest-organic-molecules-found-on-mars/
     public string name;
     public string description;
+    public string chemicalProperties;
+    public string biosignature;
+    public string geographicProperties;
 }
 
 public class RoverRockCrushing : MonoBehaviour
@@ -22,10 +29,16 @@ public class RoverRockCrushing : MonoBehaviour
     private int rockHealth = 3;
     private int startingHealth;
 
+    [SerializeField]
+    private GameObject finishButton;
+
     [Header("Artifacts")]
     public Artifact[] artifacts = new Artifact[3];
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI chemicalPropertiesText;
+    public TextMeshProUGUI biosignatureText;
+    public TextMeshProUGUI geographicPropertiesText;
     private bool artifactGiven = false;
 
     // Shaking
@@ -102,18 +115,27 @@ public class RoverRockCrushing : MonoBehaviour
         int index = Random.Range(0, artifacts.Length);
         Artifact chosenArtifact = artifacts[index];
 
-        nameText.text = $"Du Fandt: {chosenArtifact.name}!";
+        nameText.text = $"{chosenArtifact.name}!";
+        chemicalPropertiesText.text = $"{chosenArtifact.chemicalProperties}";
+        biosignatureText.text = $"{chosenArtifact.biosignature}";
+        geographicPropertiesText.text = $"{chosenArtifact.geographicProperties}";
         descriptionText.text = $"{chosenArtifact.description}";
         artifactGiven = true;
+
+        finishButton.SetActive(true);
     }
 
     public void ResetRockCrushing()
     {
         rockHealth = startingHealth;
         rockUI.SetActive(true);
+        finishButton.SetActive(false);
 
-        nameText.text = "";
-        descriptionText.text = "";
+        nameText.text = "Find ud af stenens indhold!";
+        chemicalPropertiesText.text = "Kemiske Indhold";
+        biosignatureText.text = "Biosignatur";
+        geographicPropertiesText.text = "Geografisk Location";
+        descriptionText.text = "Beskrivelse";
 
         artifactGiven = false;
     }

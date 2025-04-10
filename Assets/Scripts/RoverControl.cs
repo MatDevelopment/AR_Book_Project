@@ -9,12 +9,15 @@ public class RoverControl : MonoBehaviour
     public GameObject mainCamera;
     public float spawnDistance = 1f; // Distance in front of the camera
     public GameObject roverPrefab;
+    // private bool readyToSpawn = false;
 
     [Header("UI Elements")]
     public GameObject spawnButton;
     public GameObject despawnButton;
     public GameObject interactButton;
+    public GameObject movementButtons;
     public GameObject eventPanel;
+    public GameObject scanEnvPanel;
     private RoverRockCrushing roverRockCrushing;
 
     [Header("Movement")]
@@ -50,10 +53,12 @@ public class RoverControl : MonoBehaviour
 
     private void Start()
     {
-        spawnButton.SetActive(true);
+        spawnButton.SetActive(false);
         despawnButton.SetActive(false);
         interactButton.SetActive(false);
         eventPanel.SetActive(false);
+        movementButtons.SetActive(false);
+        scanEnvPanel.SetActive(true);
 
         // Accessing rockcrushing script
         roverRockCrushing = eventPanel.GetComponent<RoverRockCrushing>();
@@ -112,6 +117,12 @@ public class RoverControl : MonoBehaviour
         staticFrictionText.text = $"Static Friction: {roverMaterial.staticFriction.ToString()}";
     }
 
+    public void ReadyToSpawnRover()
+    {
+        spawnButton.SetActive(true);
+        scanEnvPanel.SetActive(false);
+    }
+
     public void SpawnRover()
     {
         // Determine spawn position in front of the camera
@@ -124,6 +135,9 @@ public class RoverControl : MonoBehaviour
         // Hide spawn rover button
         spawnButton.SetActive(false);
         despawnButton.SetActive(true);
+
+        // Show Movement Buttons
+        movementButtons.SetActive(true);
     }
 
     public void DespawnRover()
@@ -134,6 +148,9 @@ public class RoverControl : MonoBehaviour
         // Show spawn rover again
         spawnButton.SetActive(true);
         despawnButton.SetActive(false);
+
+        // Hide Movement Buttons
+        movementButtons.SetActive(false);
     }
 
     void FixedUpdate()

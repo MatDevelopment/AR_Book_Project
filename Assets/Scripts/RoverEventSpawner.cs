@@ -23,6 +23,9 @@ public class RoverEventSpawner : MonoBehaviour
     [Range(0f, 1f)]
     private float spawnRate = 0.1f;
 
+    private int planesAdded = 0;
+    private bool roverActivated = false;
+
     private void Awake()
     {
         arPlaneManager = GetComponent<ARPlaneManager>();
@@ -44,6 +47,14 @@ public class RoverEventSpawner : MonoBehaviour
                     GameObject placedObject = Instantiate(placedObjectPrefab, plane.transform.position, Quaternion.identity);
                     roverControl.UpdateListOfRoverEvents();
                     Debug.Log("Object Spawned on Add");
+                }
+
+                planesAdded++;
+
+                if (planesAdded >= 3 && !roverActivated)
+                {
+                    roverControl.ReadyToSpawnRover();
+                    roverActivated = true;
                 }
             }
         }
