@@ -6,141 +6,205 @@ using UnityEngine.UI;
 
 public class UI_BigBang : MonoBehaviour
 {
-  
+    public GameObject scanEnvironmentPanel, BigBangInformationPanel;
     public double DistanceTotime = 0;
     public double RemappedValue = 0;
 
     [SerializeField]
     private Slider Slider_Time;
     [SerializeField]
-    private TextMeshProUGUI Text_Time; 
+    private TextMeshProUGUI Text_Time, text_Information; 
 
-
-    void Start()
+    void Awake()
     {
-
-
         // controlTimeWithDistance = GetComponent<ControlTimeWithDistance>();
-
+        scanEnvironmentPanel.SetActive(true);
+        BigBangInformationPanel.SetActive(false);
     }
 
-    public void UpdateTimeSliderAndText(double distance, double distanceStart, double distanceEnd, double timeStart, double timeEnd)
+    public void HideStartText()
     {
-        double currentYears = ConvertDistanceToTime(distance, distanceStart, distanceEnd, timeStart, timeEnd);
-
-        double remappedValue = ExtensionMethods.Remap(currentYears, timeStart, timeEnd, 0.0, 1000f);
-        Slider_Time.value = (float)remappedValue; 
-        RemappedValue = remappedValue; 
-
-        Text_Time.text = FormatTimeFromYears(currentYears);
+        scanEnvironmentPanel.SetActive(false);
     }
 
-    private double ConvertDistanceToTime(double distance, double distanceStart, double distanceEnd, double timeStart, double timeEnd)
+    public void ShowBigBangInformation()
     {
-        distance = Math.Clamp(distance, distanceStart, distanceEnd);
-
-        if (distanceStart <= 0 || distance <= 0)
-        {
-            if (distanceStart <= 0) return timeStart;
-            if (distance == distanceStart) return timeStart;
-        }
-        if (distanceEnd == distanceStart)
-        {
-            return timeStart;
-        }
-
-        if (distanceEnd <= distanceStart)
-        {
-            Debug.LogWarning("ConvertDistanceToTime: distanceEnd must be greater than distanceStart for logarithmic interpolation.");
-            return timeStart;
-        }
-
-
-        double logDist = Math.Log(distance);
-        double logStart = Math.Log(distanceStart);
-        double logEnd = Math.Log(distanceEnd);
-
-        if (logEnd == logStart) return timeStart;
-
-
-        double normalizedDistance = (logDist - logStart) / (logEnd - logStart);
-
-
-        normalizedDistance = Math.Clamp(normalizedDistance, 0.0, 1.0);
-
-
-        DistanceTotime = timeStart + (timeEnd - timeStart) * normalizedDistance;
-
-        return DistanceTotime;
+        BigBangInformationPanel.SetActive(true);
+    }
+    public void UpdateTimeText(double currentDistance)
+    {
+        string timeText = FormatTimeFromDistance(currentDistance);
+        Text_Time.text = timeText;
+    }
+    public void UpdateTimeSlider(float input)
+    {
+        double remappedValue = ExtensionMethods.Remap(input, 0, 10, 0.0, 1000f);
+        Slider_Time.value = (float)remappedValue;
+        RemappedValue = remappedValue;
     }
 
-
-    private string FormatTimeFromYears(double years)
+    public void SetInformationText(float inputtime)
     {
-        if (years < 0)
+        string information = "";
+        if (inputtime <= 0.1f)
         {
-
-            throw new ArgumentOutOfRangeException(nameof(years), "Input år kan ikke være negativt.");
-         
+            information = "0 - Alt stof i universet er samlet i et enkelt punkt.";
+        }
+        else if (inputtime > 0.1f && inputtime <= 2.1f)
+        {
+            information = "1 nanosekund - Universet er en ekstremt varm supper af elemæntar partikler såsom Kvarker og Elektroner";
         }
 
-        // Konstanter for konvertering (bruger double for præcision)
-        const double DaysPerYear = 365.25; // Gennemsnit inkl. skudår
-        const double HoursPerDay = 24.0;
-        const double MinutesPerHour = 60.0;
-        const double SecondsPerMinute = 60.0;
-
-        // Beregn grænserne i år
-        const double MinYearsForDays = 1.0 / DaysPerYear;               // Grænse for at vise dage i stedet for timer
-        const double MinYearsForHours = MinYearsForDays / HoursPerDay;      // Grænse for at vise timer i stedet for minutter
-        const double MinYearsForMinutes = MinYearsForHours / MinutesPerHour;  // Grænse for at vise minutter i stedet for sekunder
-        const double MinYearsForSeconds = MinYearsForMinutes / SecondsPerMinute; // Teoretisk grænse for sekunder (meget lille)
-
-        // Formateringsstreng for 2 decimaler. Bruger InvariantCulture for at sikre "." som decimaltegn.
-        // Hvis du foretrækker "," baseret på systemets kultur, kan du fjerne CultureInfo.InvariantCulture.
-        string format = "F2";
-        CultureInfo culture = CultureInfo.InvariantCulture; // Brug "." som decimaltegn
-
-        // Tjek fra største enhed til mindste
-      
-        if (years >= 1000000)
+        else if (inputtime > 2.5f && inputtime <= 4.2f)
         {
-            return $"{years.ToString(format, culture)} millioner år";
-        }  
-        else if (years >= 1.0)
-        {
-            return $"{years.ToString(format, culture)} år";
+            information = "1 sekund - Atomkerner til brint og helium dannes";
         }
-        else if (years >= MinYearsForDays)
+        else if (inputtime > 5f && inputtime <= 5.6f)
         {
-            double totalDays = years * DaysPerYear;
-            return $"{totalDays.ToString(format, culture)} dage";
+            information = "377 tusind år - Atomkerner kombineres med elektroner og hydrogen atomer dannes";
         }
-        else if (years >= MinYearsForHours)
+        else if (inputtime > 6f && inputtime <= 6.6f)
         {
-            double totalHours = years * DaysPerYear * HoursPerDay;
-            return $"{totalHours.ToString(format, culture)} timer";
+            information = "300-500 millioner år - Tyngdekraften presser hydrogen atomer sammen til de første kæmpe stjerner";
         }
-        else if (years >= MinYearsForMinutes)
+        else if (inputtime > 6.8f && inputtime <= 7.4f)
         {
-            double totalMinutes = years * DaysPerYear * HoursPerDay * MinutesPerHour;
-            return $"{totalMinutes.ToString(format, culture)} minutter";
+            information = "1 millard år - De første stjerner er så massive at de eksploderer og skyder tungere elementer ud i alle retninger";
+        }
+        else if (inputtime > 7.8f && inputtime <= 8.8f)
+        {
+            information = "9.7 millarder år - Vores lille solsystem samles af stof fra de tidligere super novaer";
+        }
+        else if (inputtime > 9.9f)
+        {
+            information = "Nu";
+        }
+        else
+            information = "";
+            text_Information.text = information;
+    }
+
+    // Conversion constant: seconds in one year (using 365.25 days with 86400 s/day is a rough approximation)
+    private const double SecondsPerYear = 31557600;
+
+    public string FormatTimeFromDistance(double distance)
+    {
+        // If the distance is zero or less, show zero (with the smallest unit)
+        if (distance <= 0)
+            return "0 nanoseconds";
+
+        // For very small distances (between 0 and 0.6) linearly interpolate up to 1 nanosecond.
+        if (distance <= 0.6)
+        {
+            double fraction = distance / 0.6;
+            // Time in seconds from 0 to 1e-9 seconds, then convert to years.
+            double timeSec = fraction * 1e-9;
+            double timeYears = timeSec / SecondsPerYear;
+            return FormatTime(timeYears);
+        }
+
+        // Define breakpoints for distance and corresponding time in years.
+        // Note: 1 nanosecond and 1 second are converted into years.
+        double[] dPoints = { 0.6, 2.5, 5.0, 6.0, 6.8, 7.8, 9.9, 10.0 };
+        double[] tPointsYears = new double[dPoints.Length];
+        tPointsYears[0] = 1e-9 / SecondsPerYear;  // 1 nanosecond
+        tPointsYears[1] = 1.0 / SecondsPerYear;     // 1 second
+        tPointsYears[2] = 377000;                    // 377 thousand years
+        tPointsYears[3] = 4e8;                       // 400 million years (a median for 300–500)
+        tPointsYears[4] = 1e9;                       // 1 billion years
+        tPointsYears[5] = 9.7e9;                     // 9.7 billion years
+        tPointsYears[6] = 13.7e9;                    // 13.7 billion years
+        tPointsYears[7] = 13.7e9;                    // capped at maximum time
+
+        // Clamp above the highest breakpoint.
+        if (distance >= dPoints[dPoints.Length - 1])
+        {
+            return FormatTime(tPointsYears[dPoints.Length - 1]);
+        }
+
+        // Find the segment in which the current distance lies.
+        int seg = 0;
+        for (int i = 0; i < dPoints.Length - 1; i++)
+        {
+            if (distance >= dPoints[i] && distance <= dPoints[i + 1])
+            {
+                seg = i;
+                break;
+            }
+        }
+
+        // Interpolate between the two breakpoints using a logarithmic interpolation
+        // (except in cases where one of the values is zero).
+        double fractionSegment = (distance - dPoints[seg]) / (dPoints[seg + 1] - dPoints[seg]);
+        double t0 = tPointsYears[seg];
+        double t1 = tPointsYears[seg + 1];
+        double timeYearsInterpolated;
+        if (t0 > 0 && t1 > 0)
+        {
+            double logT0 = Math.Log(t0);
+            double logT1 = Math.Log(t1);
+            double logT = logT0 + (logT1 - logT0) * fractionSegment;
+            timeYearsInterpolated = Math.Exp(logT);
         }
         else
         {
-            // Hvis mindre end et minut, vis sekunder
-            // Håndterer også 0 og meget små positive værdier
-            double totalSeconds = years * DaysPerYear * HoursPerDay * MinutesPerHour * SecondsPerMinute;
+            // Fallback to linear interpolation if necessary.
+            timeYearsInterpolated = t0 + (t1 - t0) * fractionSegment;
+        }
 
-            // Lille korrektion for potentielle flydende komma-unøjagtigheder nær 0
-            if (Math.Abs(totalSeconds) < 1e-9)
-            {
-                totalSeconds = 0;
-            }
-            return $"{totalSeconds.ToString(format, culture)} sekunder";
+        return FormatTime(timeYearsInterpolated);
+    }
+
+    /// <summary>
+    /// Converts a time (in years) to a formatted string with at most two decimals,
+    /// selecting an appropriate unit: nanoseconds, sekunder (seconds), tusind år (thousand years),
+    /// millioner år (million years) or milliarder år (billion years).
+    /// </summary>
+    private string FormatTime(double timeYears)
+    {
+        // Convert the time in years into seconds.
+        double timeSec = timeYears * SecondsPerYear;
+
+        if (timeSec < 1)
+        {
+            double ns = timeSec * 1e9; // convert seconds to nanoseconds
+            return $"{TruncateToTwoDigits(ns)} nanoseconds";
+        }
+        else if (timeSec < 60)
+        {
+            return $"{TruncateToTwoDigits(timeSec)} sekunder";
+        }
+        else if (timeYears < 1e6)
+        {
+            double value = timeYears / 1e3;
+            return $"{TruncateToTwoDigits(value)} tusind år";
+        }
+        else if (timeYears < 1e9)
+        {
+            double value = timeYears / 1e6;
+            return $"{TruncateToTwoDigits(value)} millioner år";
+        }
+        else
+        {
+            double value = timeYears / 1e9;
+            return $"{TruncateToTwoDigits(value)} milliarder år";
         }
     }
 
-   
+    // Helper to reduce the number to two digits before the decimal
+    private string TruncateToTwoDigits(double value)
+    {
+        while (value >= 100)
+        {
+            value /= 10;
+        }
+        return value.ToString("F2");
+    }
+
+
+    /// <summary>
+    /// Updates the UI text element to display the time corresponding to the current distance.
+    /// Pass in the current distance value (typically between distanceStart and distanceEnd).
+    /// </summary>
 
 }

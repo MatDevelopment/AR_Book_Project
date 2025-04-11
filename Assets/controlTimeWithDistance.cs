@@ -7,10 +7,10 @@ using UnityEngine.EventSystems;
 public class ControlTimeWithDistance : MonoBehaviour
 {
     private UI_BigBang uiBigBang;
-
+    private AddSliderMarks addSliderMarks;
     private const int particleSystemMaxPlaybackTime = 10;
 
-    private double distanceStart = 0.5; // Start of visualization
+    private double distanceStart = 1.3; // Start of visualization
     private double distanceEnd = 4.0;   // End of visualization
 
     private double timeStart = 0.0;
@@ -38,11 +38,15 @@ public class ControlTimeWithDistance : MonoBehaviour
     public TextMeshProUGUI distanceText;
     [SerializeField]
     float distanceToCamera; // You can change this in the Inspector to test.
+    [SerializeField]
+    float timeByDistance;
     private Camera cam;
 
     public bool targetFound = false;
+    private bool canUpdateMarkers = false;
     void Start()
     {
+
 #if UNITY_EDITOR
         CallThisOnTargetFound();
 #endif
@@ -51,8 +55,13 @@ public class ControlTimeWithDistance : MonoBehaviour
     {
         if(targetFound) return;
 
-        //solarSystemObject = Instantiate(solarSystemPrefab, solarSystemSpawnPointTransform.position, Quaternion.identity);
         uiBigBang = GetComponent<UI_BigBang>();
+        uiBigBang.HideStartText();
+        uiBigBang.ShowBigBangInformation();
+
+        //solarSystemObject = Instantiate(solarSystemPrefab, solarSystemSpawnPointTransform.position, Quaternion.identity);
+      
+        addSliderMarks = FindAnyObjectByType<AddSliderMarks>();
         childSystems.Add(GetComponent<ParticleSystem>());
         foreach (Transform child in transform)
         {
@@ -68,8 +77,13 @@ public class ControlTimeWithDistance : MonoBehaviour
             child.Stop();
         }
 
+        Invoke("SetCanUpdateMarkers", 0.2f);
         targetFound = true;
         //ps.Stop();
+    }
+    private void SetCanUpdateMarkers()
+    {
+        canUpdateMarkers = true;
     }
     private void OnEnable()
     {
@@ -93,7 +107,9 @@ public class ControlTimeWithDistance : MonoBehaviour
 
         float DistanceMinusMinumumStartDistance = (float)distanceToCamera - (float)distanceStart;
 
-        double distanceToParticlePlaybackTime = ExtensionMethods.Remap((float)DistanceMinusMinumumStartDistance, (float)0, (float)distanceEnd, (float)0, (float)particleSystemMaxPlaybackTime);
+        timeByDistance = (float)ExtensionMethods.Remap((float)DistanceMinusMinumumStartDistance, (float)0, (float)distanceEnd, (float)0, (float)particleSystemMaxPlaybackTime);
+
+        uiBigBang.SetInformationText((float)timeByDistance);
 
         distanceText.text = "dist: " + distanceToCamera.ToString("F2") + "m";
         foreach (ParticleSystem child in childSystems)
@@ -104,31 +120,35 @@ public class ControlTimeWithDistance : MonoBehaviour
             // Simulate the particle system up to the time corresponding to your distance.
             // The second parameter (withChildren) applies the simulation to child systems.
             // The third parameter (restart) resets the simulation so it starts from time 0.
-            child.Simulate((float)distanceToParticlePlaybackTime, withChildren: true, restart: true);
+            child.Simulate((float)timeByDistance, withChildren: true, restart: true);
 
             // Play the system so that the simulated particles are visible.
             child.Play();
         }
 
-        uiBigBang.UpdateTimeSliderAndText(distanceToCamera, distanceStart, distanceEnd, timeStart, timeEnd);
+        uiBigBang.UpdateTimeText(timeByDistance);
+        uiBigBang.UpdateTimeSlider(timeByDistance);
 
-        if (distanceToParticlePlaybackTime <= 7.8)
+        if(canUpdateMarkers)
+        addSliderMarks.UpdateSliderMarks(timeByDistance);
+
+        if (timeByDistance <= 7.8)
         {
             solarSystemObject.transform.localScale = solarSystemMinimumScale;
         }
-        else if (distanceToParticlePlaybackTime > 7.8 && distanceToParticlePlaybackTime < 8.3f)
+        else if (timeByDistance > 7.8 && timeByDistance < 8.3f)
         {
-            float t = ((float)distanceToParticlePlaybackTime - 8f) / 0.5f;
+            float t = ((float)timeByDistance - 8f) / 0.5f;
             solarSystemObject.transform.localScale = Vector3.Lerp(solarSystemMinimumScale, solarSystemMaximumScale, t);
         }
-        else if (distanceToParticlePlaybackTime >= 8.3f && distanceToParticlePlaybackTime <= 9.4f)
+        else if (timeByDistance >= 8.3f && timeByDistance <= 9.4f)
         {
 
             solarSystemObject.transform.localScale = solarSystemMaximumScale;
         }
-        else if (distanceToParticlePlaybackTime > 9.4f && distanceToParticlePlaybackTime < 9.9f)
+        else if (timeByDistance > 9.4f && timeByDistance < 9.9f)
         {
-            float t = ((float)distanceToParticlePlaybackTime - 8.6f) / 0.5f;
+            float t = ((float)timeByDistance - 8.6f) / 0.5f;
             solarSystemObject.transform.localScale = Vector3.Lerp(solarSystemMaximumScale, solarSystemMinimumScale, t);
         }
         else

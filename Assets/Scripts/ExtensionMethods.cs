@@ -19,4 +19,37 @@ public static class ExtensionMethods
         if (to1 - from1 == 0) return from2; // Avoid division by zero if input range is zero
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
+
+    public static double ConvertDistanceToTime(double distance, double distanceStart, double distanceEnd, double timeStart, double timeEnd)
+    {
+        distance = Math.Clamp(distance, distanceStart, distanceEnd);
+
+        if (distanceStart <= 0 || distance <= 0)
+        {
+            if (distanceStart <= 0) return timeStart;
+            if (distance == distanceStart) return timeStart;
+        }
+        if (distanceEnd == distanceStart)
+        {
+            return timeStart;
+        }
+
+        if (distanceEnd <= distanceStart)
+        {
+            Debug.LogWarning("ConvertDistanceToTime: distanceEnd must be greater than distanceStart for logarithmic interpolation.");
+            return timeStart;
+        }
+
+        double logDist = Math.Log(distance);
+        double logStart = Math.Log(distanceStart);
+        double logEnd = Math.Log(distanceEnd);
+
+        if (logEnd == logStart) return timeStart;
+
+        double normalizedDistance = (logDist - logStart) / (logEnd - logStart);
+
+        normalizedDistance = Math.Clamp(normalizedDistance, 0.0, 1.0);
+
+        return timeStart + (timeEnd - timeStart) * normalizedDistance;
+    }
 }
