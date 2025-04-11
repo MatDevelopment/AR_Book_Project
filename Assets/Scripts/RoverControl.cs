@@ -255,11 +255,19 @@ public class RoverControl : MonoBehaviour
         // Show Event UI
         eventPanel.SetActive(true);
         roverRockCrushing.ResetRockCrushing();
+
+        // Hide UI Buttons
+        movementButtons.SetActive(false);
+        despawnButton.SetActive(false);
     }
 
     public void FinishMarsEvent()
     {
         // Hide Event UI
         eventPanel.SetActive(false);
+
+        // Show UI Buttons
+        movementButtons.SetActive(true);
+        despawnButton.SetActive(true);
     }
 }
