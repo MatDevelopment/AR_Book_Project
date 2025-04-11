@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class RotateOverTime : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float _degreesPerSecondToRotateSelf;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 0.2f, 0);
+        gameObject.transform.Rotate(Vector3.up, _degreesPerSecondToRotateSelf * Time.deltaTime, Space.Self);
     }
 }
