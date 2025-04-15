@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Drawing;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +17,13 @@ public class Artifact
     public string geographicProperties;
 }
 
+[System.Serializable]
+public class ArtifactHint
+{
+    public string artifactName;
+    public string hintText;
+}
+
 public class RoverRockCrushing : MonoBehaviour
 {
     // Idea for cracking the stones open:
@@ -24,6 +31,9 @@ public class RoverRockCrushing : MonoBehaviour
 
     [SerializeField]
     private GameObject rockUI;
+    [SerializeField]
+    private GameObject splitRockPrefab;
+    private GameObject splitRock;
 
     [SerializeField]
     private int rockHealth = 3;
@@ -33,18 +43,26 @@ public class RoverRockCrushing : MonoBehaviour
     private GameObject finishButton;
 
     [Header("Artifacts")]
-    public Artifact[] artifacts = new Artifact[3];
+    public List<Artifact> artifacts = new List<Artifact>();
+    public ArtifactHint[] artifactHints = new ArtifactHint[3];
+    public TextMeshProUGUI[] hintTexts = new TextMeshProUGUI[3];
+    private int currentHint = 0;
+    private bool artifactGiven = false;
+    private List<Artifact> foundArtifacts = new List<Artifact>();
+
+    [Header("UI Elements")]
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
     public TextMeshProUGUI chemicalPropertiesText;
     public TextMeshProUGUI biosignatureText;
     public TextMeshProUGUI geographicPropertiesText;
-    private bool artifactGiven = false;
 
     // Shaking
     [Header("Shaking")]
     [SerializeField]
     private ParticleSystem rockParticles;
+    [SerializeField]
+    private ParticleSystem dustParticles;
     [SerializeField]
     private float shakeDuration = 0.5f;
     [SerializeField]
@@ -52,10 +70,15 @@ public class RoverRockCrushing : MonoBehaviour
     private Vector3 originalPosition;
     private bool isShaking = false;
 
+    // Audio
+    private SoundEffectManager rockAudioManager;
+
     void Start()
     {
         originalPosition = rockUI.transform.localPosition;
         startingHealth = rockHealth;
+
+        rockAudioManager = GetComponent<SoundEffectManager>();
     }
 
     public void RockClick()
@@ -65,6 +88,7 @@ public class RoverRockCrushing : MonoBehaviour
         {
             StopCoroutine(RockShake());
             rockParticles.Stop();
+            dustParticles.Stop();
             rockUI.transform.localPosition = originalPosition;
             isShaking = false;
         }
@@ -75,6 +99,7 @@ public class RoverRockCrushing : MonoBehaviour
             StartCoroutine(RockShake());
 
             rockParticles.Play();
+            dustParticles.Play();
         }
     }
 
@@ -82,6 +107,8 @@ public class RoverRockCrushing : MonoBehaviour
     {
         isShaking = true;
         float elapsed = 0f;
+
+        rockAudioManager.PlaySingleSound("rock_hit");
 
         // Defining the shake amount based on the magnitude given and the health left
         while (elapsed < shakeDuration)
@@ -102,6 +129,9 @@ public class RoverRockCrushing : MonoBehaviour
         // Condition to remove rock
         if (rockHealth <= 0)
         {
+            rockAudioManager.PlaySingleSound("rock_crush");
+
+            splitRock = Instantiate(splitRockPrefab, rockUI.transform.position, Quaternion.identity);
             rockUI.SetActive(false);
             GiveArtifact();
         }
@@ -112,31 +142,104 @@ public class RoverRockCrushing : MonoBehaviour
 
     private void GiveArtifact()
     {
-        int index = Random.Range(0, artifacts.Length);
-        Artifact chosenArtifact = artifacts[index];
+        if (artifacts.Count > 0)
+        {
+            // Select artifact
+            int index = Random.Range(0, artifacts.Count);
+            Artifact chosenArtifact = artifacts[index];
 
-        nameText.text = $"{chosenArtifact.name}!";
-        chemicalPropertiesText.text = $"{chosenArtifact.chemicalProperties}";
-        biosignatureText.text = $"{chosenArtifact.biosignature}";
-        geographicPropertiesText.text = $"{chosenArtifact.geographicProperties}";
-        descriptionText.text = $"{chosenArtifact.description}";
+            // Add to list of found artifacts
+            foundArtifacts.Add(chosenArtifact);
+
+            // Activate Hints
+            foreach (ArtifactHint hint in artifactHints)
+            {
+                if (hint.artifactName == chosenArtifact.name && currentHint < hintTexts.Length)
+                {
+                    hintTexts[currentHint].text = hint.hintText;
+                    currentHint++;
+                }
+            }
+
+            // Update UI
+            StopAllCoroutines();
+            StartCoroutine(TypingSequence(1f,
+                $"{foundArtifacts.Count} {chosenArtifact.name}",
+                chosenArtifact.chemicalProperties,
+                chosenArtifact.biosignature,
+                chosenArtifact.geographicProperties,
+                chosenArtifact.description));
+
+            // Remove from artifact list
+            artifacts.Remove(chosenArtifact);
+        } else {
+            // Update UI
+            nameText.text = $"Normal Sten";
+            chemicalPropertiesText.text = $"Små Mineraler";
+            biosignatureText.text = $"Intet tegn på liv";
+            geographicPropertiesText.text = $"Findes overalt";
+            descriptionText.text = $"Missionen er fuldført, alle tegn på liv er fundet";
+        }
+
         artifactGiven = true;
 
         finishButton.SetActive(true);
+
     }
 
     public void ResetRockCrushing()
     {
         rockHealth = startingHealth;
+        Destroy(splitRock);
         rockUI.SetActive(true);
         finishButton.SetActive(false);
 
-        nameText.text = "Find ud af stenens indhold!";
-        chemicalPropertiesText.text = "Kemiske Indhold";
-        biosignatureText.text = "Biosignatur";
-        geographicPropertiesText.text = "Geografisk Location";
-        descriptionText.text = "Beskrivelse";
+        // Remove Previous Text
+        nameText.text = "";
+        chemicalPropertiesText.text = "";
+        biosignatureText.text = "";
+        geographicPropertiesText.text = "";
+        descriptionText.text = "";
+
+        // Write new text
+        StopAllCoroutines();
+        StartCoroutine(TypingSequence(1f,
+            "Find ud af stenens indhold",
+            "Kemiske Indhold",
+            "Biosignatur",
+            "Geografisk Placering",
+            "Beskrivelse"));
 
         artifactGiven = false;
+    }
+
+    // Typewriting effect function
+    private IEnumerator TypeText(string fullText, TextMeshProUGUI textElement)
+    {
+        float typingSpeed = 0.05f;
+        textElement.text = "";
+        foreach (char letter in fullText)
+        {
+            textElement.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
+
+    private IEnumerator TypingSequence(float speed, string name, string chemical, string biosignature, string geographic, string description)
+    {
+        rockAudioManager.PlaySound("typing");
+        
+        StartCoroutine(TypeText(name, nameText));
+        yield return new WaitForSeconds(speed * 1.5f);
+        StartCoroutine(TypeText(chemical, chemicalPropertiesText));
+        yield return new WaitForSeconds(speed);
+        StartCoroutine(TypeText(biosignature, biosignatureText));
+        yield return new WaitForSeconds(speed);
+        StartCoroutine(TypeText(geographic, geographicPropertiesText));
+        yield return new WaitForSeconds(speed);
+        StartCoroutine(TypeText(description, descriptionText));
+        yield return new WaitForSeconds(speed);
+
+        rockAudioManager.PauseSound();
     }
 }

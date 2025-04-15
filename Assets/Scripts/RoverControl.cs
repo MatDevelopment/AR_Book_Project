@@ -51,6 +51,9 @@ public class RoverControl : MonoBehaviour
     private GameObject[] allObjectsWithTag;
     private GameObject nearestObject;
 
+    // Audio
+    private SoundEffectManager roverSoundEffectManager;
+
     private void Start()
     {
         spawnButton.SetActive(false);
@@ -124,13 +127,16 @@ public class RoverControl : MonoBehaviour
     }
 
     public void SpawnRover()
-    {
+    {   
         // Determine spawn position in front of the camera
         Vector3 spawnPosition = mainCamera.transform.position + mainCamera.transform.forward * spawnDistance;
 
         // Spawn the rover
         rover = Instantiate(roverPrefab, spawnPosition, Quaternion.identity);
         roverRB = rover.GetComponent<Rigidbody>();
+        roverSoundEffectManager = rover.GetComponent<SoundEffectManager>();
+
+        roverSoundEffectManager.PlaySingleSound("button_click");
 
         // Hide spawn rover button
         spawnButton.SetActive(false);
@@ -184,16 +190,48 @@ public class RoverControl : MonoBehaviour
 
     // Methods for Event Trigger assignment
 
-    public void StartMovingForward() => movingForward = true;
-    public void StopMovingForward() => movingForward = false;
-    public void StartMovingBackward() => movingBackward = true;
-    public void StopMovingBackward() => movingBackward = false;
+    public void StartMovingForward()
+    { 
+        movingForward = true;
+        roverSoundEffectManager.PlaySound("gravel_road");
+    }
+    public void StopMovingForward()
+    { 
+        movingForward = false;
+        roverSoundEffectManager.PauseSound();
+    }
+    public void StartMovingBackward()
+    { 
+        movingBackward = true;
+        roverSoundEffectManager.PlaySound("gravel_road");
+    }
+    public void StopMovingBackward()
+    {
+        movingBackward = false;
+        roverSoundEffectManager.PauseSound();
+    }
 
-    public void StartRotatingLeft() => rotatingLeft = true;
-    public void StopRotatingLeft() => rotatingLeft = false;
+    public void StartRotatingLeft()
+    {
+        rotatingLeft = true;
+        roverSoundEffectManager.PlaySound("servo");
+    }
+    public void StopRotatingLeft()
+    {
+        rotatingLeft = false;
+        roverSoundEffectManager.PauseSound();
+    }
 
-    public void StartRotatingRight() => rotatingRight = true;
-    public void StopRotatingRight() => rotatingRight = false;
+    public void StartRotatingRight()
+    {
+        rotatingRight = true;
+        roverSoundEffectManager.PlaySound("servo");
+    }
+    public void StopRotatingRight()
+    {
+        rotatingRight = false;
+        roverSoundEffectManager.PauseSound();
+    }
 
     // Function called to update the list of events whenever new instances is instantiated
     public void UpdateListOfRoverEvents()
@@ -248,6 +286,12 @@ public class RoverControl : MonoBehaviour
     // Function for the button call when interacting with an event
     public void InteractWithEvent()
     {
+        // Sound Effect
+        if (rover != null)
+        {
+            roverSoundEffectManager.PlaySingleSound("button_click");
+        }
+        
         // Remove and Update list of objects
         nearestObject.SetActive(false);
         UpdateListOfRoverEvents();
@@ -263,6 +307,12 @@ public class RoverControl : MonoBehaviour
 
     public void FinishMarsEvent()
     {
+        // Sound Effect
+        if (rover != null)
+        {
+            roverSoundEffectManager.PlaySingleSound("button_click");
+        }
+
         // Hide Event UI
         eventPanel.SetActive(false);
 
