@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlanetsAndStars.unity
     guid: 7bdc44190c507544d86435378d9d7be8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/RoverScene.unity
     guid: 0647d7bc4a2469544ad557bba3741d6a
   - enabled: 0
