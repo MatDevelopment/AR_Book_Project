@@ -313,7 +313,7 @@ public class QuestionManager : MonoBehaviour
         }
         else if (isUIHorizontal)
         {
-            questionsPanel.anchoredPosition = new Vector2(0, 0);
+            questionsPanel.anchoredPosition = new Vector2(-100f, 0);
         }
     }
 }

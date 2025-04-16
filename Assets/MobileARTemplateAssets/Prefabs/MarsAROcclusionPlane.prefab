@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1337303928915544006}
   - component: {fileID: 2000989330670121048}
   m_Layer: 0
-  m_Name: AROcclusionPlane
+  m_Name: MarsAROcclusionPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e7ccb5d1ec226ea42b48985eb9615de6, type: 2}
+  - {fileID: 2100000, guid: bc7a28aa358a6e6409528ded326a09de, type: 2}
   - {fileID: 2100000, guid: b1c0a3539eb5c4008ac8cbe31431cb49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

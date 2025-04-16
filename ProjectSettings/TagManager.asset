@@ -9,6 +9,7 @@ TagManager:
   - Clickable
   - Earth
   - MarsEvent
+  - Rocket
   layers:
   - Default
   - TransparentFX
