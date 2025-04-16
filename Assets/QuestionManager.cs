@@ -10,7 +10,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField]
     public List<Question> questions = new List<Question>();
 
-    public bool AllQuestionsAnswered = false, EndSessionFinished = false, ShowDebugFinishButton = true;
+    public bool AllQuestionsAnswered = false, EndSessionFinished = false, ShowDebugFinishButton = true, isUIHorizontal = false;
     public Transform QuestionsParent;
     public GameObject questionBoxPrefab;
     public GameObject togglePrefab;
@@ -21,7 +21,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField]
     private RectTransform questionsPanel;
 
-    private bool panelHidden = false;
+    private bool panelHidden = true;
 
     void Start()
     {
@@ -295,11 +295,25 @@ public class QuestionManager : MonoBehaviour
 
     private void HideQuestionsPanel()
     {
-        questionsPanel.anchoredPosition = new Vector2(0, -1521.5f);
+        if (!isUIHorizontal)
+        {
+            questionsPanel.anchoredPosition = new Vector2(0, -1521.5f);
+        }
+        else if (isUIHorizontal)
+        {
+            questionsPanel.anchoredPosition = new Vector2(-1075, 0);
+        }
     }
 
     private void ShowQuestionsPanel()
     {
-        questionsPanel.anchoredPosition = new Vector2(0, 0);
+        if (!isUIHorizontal)
+        {
+            questionsPanel.anchoredPosition = new Vector2(0, 0);
+        }
+        else if (isUIHorizontal)
+        {
+            questionsPanel.anchoredPosition = new Vector2(0, 0);
+        }
     }
 }
