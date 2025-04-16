@@ -87,15 +87,15 @@ public class QuestionManager : MonoBehaviour
 
     private IEnumerator ShowQuestionsSequentially()
     {
-        yield return new WaitForSeconds(0.5f); // Delay bbefore starting
+        yield return new WaitForSeconds(0.4f); // Delay bbefore starting
 
         foreach (Question question in questions)
         {
             yield return StartCoroutine(ShowQuestionInformation(question));
-            yield return new WaitForSeconds(1.3f); // Delay between clearing 
+            yield return new WaitForSeconds(1f); // Delay between clearing 
             SetClearTextColorAllAfterQuizText();
             HideCorrectIncorrectIcons();
-            yield return new WaitForSeconds(1.3f); // Delay between showing next question
+            yield return new WaitForSeconds(1f); // Delay between showing next question
         }
         EndSessionFinished = true;
         ShowNextExerciseButton();
@@ -109,40 +109,38 @@ public class QuestionManager : MonoBehaviour
     {
         CG_NextExerciseButton.gameObject.SetActive(false);
     }
-    public void LoadScene_PlanetsAndStars()
+    public void LoadScene(string sceneName)
     {
         if (EndSessionFinished)
-            SceneManager.LoadScene("PlanetsAndStars");
-    }
-    public void LoadScene_Rover()
-    {
-        if (EndSessionFinished)
-            SceneManager.LoadScene("RoverScene");
-    }
-    public void LoadScene_End()
-    {
-        if (EndSessionFinished)
-            SceneManager.LoadScene("End");
-    }
+        {
+            DataLogger.Instance.AddQuestionsToAnsweredQuetions(questions);
+            DataLogger.Instance.AddTimeSpentInScene();
 
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+  
     private IEnumerator ShowQuestionInformation(Question question)
     {
         HideCorrectIncorrectIcons();
+
         // Wait before showing question details
         yield return new WaitForSeconds(1);
         StartCoroutine(SetTextColorAfterDelay(afterQuizQuestionText, 0));
         afterQuizQuestionText.text = question.questionText;
         Debug.Log("answer: " + question.possibleAnswers[question.userAnswer]);
 
-        // Show user answer after 4 seconds
-        yield return new WaitForSeconds(1.5f);
+        // Show user answer
+        yield return new WaitForSeconds(0.4f);
         StartCoroutine(SetTextColorAfterDelay(staticUserAnswer, 0));
+        yield return new WaitForSeconds(0.4f);
         StartCoroutine(SetTextColorAfterDelay(afterQuizUserAnswerText, 0));
         afterQuizUserAnswerText.text = question.possibleAnswers[question.userAnswer];
 
-        // Show correct answer after 6 seconds
-        yield return new WaitForSeconds(1.5f);
+        // Show correct answer
+        yield return new WaitForSeconds(0.4f);
         StartCoroutine(SetTextColorAfterDelay(staticCorrectAnswer, 0));
+        yield return new WaitForSeconds(0.4f);
         StartCoroutine(SetTextColorAfterDelay(afterQuizCorrectAnswerText, 0));
         afterQuizCorrectAnswerText.text = question.possibleAnswers[question.correctAnswerIndex];
 

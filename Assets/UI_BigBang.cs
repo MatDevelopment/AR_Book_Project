@@ -174,6 +174,11 @@ public class UI_BigBang : MonoBehaviour
         {
             return $"{TruncateToTwoDigits(timeSec)} sekunder";
         }
+        else if (timeSec < 3600) // Ny gren: hvis tiden er under én time, konverter til minutter.
+        {
+            double minutes = timeSec / 60;
+            return $"{TruncateToTwoDigits(minutes)} minutter";
+        }
         else if (timeYears < 1e6)
         {
             double value = timeYears / 1e3;
@@ -190,6 +195,7 @@ public class UI_BigBang : MonoBehaviour
             return $"{TruncateToTwoDigits(value)} milliarder år";
         }
     }
+
 
     // Helper to reduce the number to two digits before the decimal
     private string TruncateToTwoDigits(double value)
