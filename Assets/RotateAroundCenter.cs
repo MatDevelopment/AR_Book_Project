@@ -5,8 +5,8 @@ public class RotateAroundCenter : MonoBehaviour
 {
     [SerializeField] private GameObject SunGameobject_SolarSystemCenter;
 
-    [SerializeField] private float _degreesPerSecondToRotateAroundSun;
-    [SerializeField] private float _degreesPerSecondToRotateSelf;
+    public float _degreesPerSecondToRotateAroundSun;
+    public float _degreesPerSecondToRotateSelf;
     //[SerializeField] private Vector3 selfRotateVector;
     
 

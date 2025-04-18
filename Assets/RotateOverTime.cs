@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RotateOverTime : MonoBehaviour
 {
-    [SerializeField] private float _degreesPerSecondToRotateSelf;
+    public float _degreesPerSecondToRotateSelf;
 
     // Update is called once per frame
     void Update()

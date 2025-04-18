@@ -15,6 +15,9 @@ public class PlanetCollisionTrigger : MonoBehaviour
     [SerializeField]
     GameObject earthEnterPanel;
 
+    [SerializeField]
+    private SolarSystemManager solarSystemManager;
+
     private void Start()
     {
         marsEnterPanel.SetActive(false);
@@ -40,9 +43,11 @@ public class PlanetCollisionTrigger : MonoBehaviour
         {
             case "Earth":
                 earthEnterPanel.SetActive(true);
+                solarSystemManager.StopAllPlanetsRotating();
                 break;
             case "Mars":
                 marsEnterPanel.SetActive(true);
+                solarSystemManager.StopAllPlanetsRotating();
                 break;
         }
     }
@@ -53,9 +58,11 @@ public class PlanetCollisionTrigger : MonoBehaviour
         {
             case "Earth":
                 earthEnterPanel.SetActive(false);
+                solarSystemManager.StartAllPlanetsRotating();
                 break;
             case "Mars":
                 marsEnterPanel.SetActive(false);
+                solarSystemManager.StartAllPlanetsRotating();
                 break;
         }
     }
