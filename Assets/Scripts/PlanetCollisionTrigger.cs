@@ -24,7 +24,7 @@ public class PlanetCollisionTrigger : MonoBehaviour
         earthEnterPanel.SetActive(false);
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Rocket")
         {

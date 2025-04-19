@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class RocketControl : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class RocketControl : MonoBehaviour
     [SerializeField] private bool isInverted = false;
     private bool rotateAllowed = false;
     private bool isDragging = false;
+
+    [Header("Tangible Rotation")]
+    [SerializeField] private bool tangibleRotation = false;
+    [SerializeField] private GameObject modelTarget;
+    [SerializeField] private GameObject rocketRender;
 
     // Setting up and getting the input actions from the action asset
     public InputActionAsset action
@@ -118,7 +124,11 @@ public class RocketControl : MonoBehaviour
         despawnButton.SetActive(true);
         throttleSlider.gameObject.SetActive(true);
         throttleSlider.value = 0f;
-        dragButton.SetActive(true);
+        
+        if (!tangibleRotation)
+        {
+            dragButton.SetActive(true);
+        }
     }
 
     public void DespawnRocket()
@@ -143,8 +153,13 @@ public class RocketControl : MonoBehaviour
                 rocketRB.AddForce(rocket.transform.forward * rocketSpeed, ForceMode.Force);
             }
 
+            if (tangibleRotation)
+            {
+                rocket.transform.rotation = modelTarget.transform.rotation * Quaternion.Euler(-90, 0, 0);
+            }
+
             // Rotating the rocket using touch
-            if (rotateAllowed && isDragging)
+            if (!tangibleRotation && rotateAllowed && isDragging)
             {
                 Vector2 MouseDeltaVector = GetMouseLookInput();
 
@@ -159,6 +174,7 @@ public class RocketControl : MonoBehaviour
                 rocket.transform.Rotate(Vector3.up * (isInverted ? 1 : -1), MouseDeltaVector.y, Space.World);
                 rocket.transform.Rotate(Vector3.right * (isInverted ? 1 : -1), MouseDeltaVector.x, Space.World);
 
+                rocketRender.transform.rotation = rocket.transform.rotation;
             }
 
             // **Limit Maximum Speed**
