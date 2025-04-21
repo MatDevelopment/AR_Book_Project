@@ -12,6 +12,9 @@ public class SolarSystemManager : MonoBehaviour
     [SerializeField]
     private GameObject[] planetObjects = new GameObject[9];
 
+    [SerializeField]
+    private float rotationMultiplier = 1f;
+
     // Creating a class that holds the initial information about each planets rotation speeds
     public class Planet
     {
@@ -38,6 +41,8 @@ public class SolarSystemManager : MonoBehaviour
             currentPlanet.initialRotateSelf = currentPlanet.rotateScript._degreesPerSecondToRotateSelf;
             planets.Add(currentPlanet);
         }
+
+        ApplyRotationMultiplier(rotationMultiplier);
     }
 
     // Function used to pause all rotations
@@ -61,6 +66,17 @@ public class SolarSystemManager : MonoBehaviour
         {
             planet.rotateScript._degreesPerSecondToRotateAroundSun = planet.initialRotateSolar;
             planet.rotateScript._degreesPerSecondToRotateSelf = planet.initialRotateSelf;
+        }
+
+        ApplyRotationMultiplier(rotationMultiplier);
+    }
+
+    public void ApplyRotationMultiplier(float multiplier)
+    {
+        foreach (Planet planet in planets)
+        {
+            planet.rotateScript._degreesPerSecondToRotateAroundSun = planet.initialRotateSolar * multiplier;
+            planet.rotateScript._degreesPerSecondToRotateSelf = planet.initialRotateSelf * multiplier;
         }
     }
 }

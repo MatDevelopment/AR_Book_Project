@@ -6,19 +6,26 @@ using static UnityEngine.GraphicsBuffer;
 
 public class RocketControl : MonoBehaviour
 {
+    [Header("Rocket Spawning")]
     // Spawning the Rocket
     public GameObject mainCamera;
     public float spawnDistance = 1f; // Distance in front of the camera
     public GameObject rocketPrefab;
 
+    [Header("UI Elements")]
     // UI Elements
     public GameObject spawnButton;
+    public GameObject verticalSpawn;
     public GameObject despawnButton;
+    public GameObject verticalDespawn;
     public Slider throttleSlider;
+    public Slider verticalSlider;
     public GameObject dragButton;
+    [SerializeField] private GameObject rocketRender;
 
     // Rocket Movement
     private GameObject rocket;
+    [Header("Rocket Movement")]
     public Rigidbody rocketRB;
     public float moveSpeed = 0.2f;
     public float rotateSpeed = 1f;
@@ -26,6 +33,7 @@ public class RocketControl : MonoBehaviour
     [SerializeField] private float maxRotateSpeed = 1f;
     private float rocketSpeed = 0f;
 
+    [Header("Touch Rotation Control")]
     // Values for rotating by touch
     [SerializeField] private InputActionAsset _action;
     [SerializeField] private bool isInverted = false;
@@ -35,7 +43,6 @@ public class RocketControl : MonoBehaviour
     [Header("Tangible Rotation")]
     [SerializeField] private bool tangibleRotation = false;
     [SerializeField] private GameObject modelTarget;
-    [SerializeField] private GameObject rocketRender;
 
     // Setting up and getting the input actions from the action asset
     public InputActionAsset action
@@ -95,10 +102,24 @@ public class RocketControl : MonoBehaviour
     private void Start()
     {
         // Shows and hides the right buttons
-        spawnButton.SetActive(true);
+        spawnButton.SetActive(false);
+        verticalSpawn.SetActive(false);
         despawnButton.SetActive(false);
+        verticalDespawn.SetActive(false);
         throttleSlider.gameObject.SetActive(false);
+        verticalSlider.gameObject.SetActive(false);
         dragButton.SetActive(false);
+
+        // If tangible change UI elements to vertical ones
+        if (tangibleRotation)
+        {
+            throttleSlider = verticalSlider;
+            spawnButton = verticalSpawn;
+            despawnButton = verticalDespawn;
+        }
+
+        // Activates the appropriate spawn button
+        spawnButton.SetActive(true);
 
         //Adds a listener to the slider and invokes a method when the value changes.
         throttleSlider.onValueChanged.AddListener(delegate { SliderValueChangeCheck(); });
@@ -183,6 +204,13 @@ public class RocketControl : MonoBehaviour
             // **Limit Maximum Rotation Speed**
             rocketRB.angularVelocity = Vector3.ClampMagnitude(rocketRB.angularVelocity, maxRotateSpeed);
         }
+    }
+
+    public void StopRocket()
+    {
+        rocketRB.linearVelocity = Vector3.zero;
+        throttleSlider.value = 0;
+        rocketSpeed = 0;
     }
 
     public void StartDragging() => isDragging = true;

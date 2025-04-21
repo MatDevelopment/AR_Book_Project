@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
@@ -15,8 +16,14 @@ public class PlanetCollisionTrigger : MonoBehaviour
     [SerializeField]
     GameObject earthEnterPanel;
 
+    [Header("Other Scripts Needed")]
     [SerializeField]
     private SolarSystemManager solarSystemManager;
+
+    [SerializeField]
+    private RocketControl rocketControl;
+    private float gracePeriod = 2f;
+    private bool isInGracePeriod = false;
 
     private void Start()
     {
@@ -39,6 +46,11 @@ public class PlanetCollisionTrigger : MonoBehaviour
 
     public void ShowExercisePanel()
     {
+        if (isInGracePeriod)
+        {
+            return;
+        }
+
         switch (currentPlanet)
         {
             case "Earth":
@@ -50,6 +62,8 @@ public class PlanetCollisionTrigger : MonoBehaviour
                 solarSystemManager.StopAllPlanetsRotating();
                 break;
         }
+
+        rocketControl.StopRocket();
     }
 
     public void ClosePanel()
@@ -58,12 +72,24 @@ public class PlanetCollisionTrigger : MonoBehaviour
         {
             case "Earth":
                 earthEnterPanel.SetActive(false);
-                solarSystemManager.StartAllPlanetsRotating();
                 break;
             case "Mars":
                 marsEnterPanel.SetActive(false);
-                solarSystemManager.StartAllPlanetsRotating();
                 break;
         }
+
+        if (!earthEnterPanel.activeInHierarchy && !marsEnterPanel.activeInHierarchy)
+        {
+            solarSystemManager.StartAllPlanetsRotating();
+        }
+
+        StartCoroutine(StartGracePeriod(gracePeriod));
+    }
+
+    IEnumerator StartGracePeriod(float graceTime)
+    {
+        isInGracePeriod = true;
+        yield return new WaitForSeconds(graceTime);
+        isInGracePeriod = false;
     }
 }
