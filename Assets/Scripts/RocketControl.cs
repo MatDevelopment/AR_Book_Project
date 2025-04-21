@@ -44,11 +44,15 @@ public class RocketControl : MonoBehaviour
     [SerializeField] private bool tangibleRotation = false;
     [SerializeField] private GameObject modelTarget;
 
+    [Header("Rocket Particles")]
+    [SerializeField] private SUI_particleSystemsHolder particleHolder;
     // Setting up and getting the input actions from the action asset
     public InputActionAsset action
     {
         get => _action; set => _action = value;
     }
+
+    
 
     protected InputAction LeftClickPressedInputAction { get; set; }
     protected InputAction MouseLookInputAction { get; set; }
@@ -129,6 +133,13 @@ public class RocketControl : MonoBehaviour
     {
         // Updates the rocketspeed based on slider value
         rocketSpeed = throttleSlider.value * moveSpeed;
+        SetParticlesToMatchSpeed(throttleSlider.value);
+    }
+
+    public void SetParticlesToMatchSpeed(float input)
+    {
+        particleHolder.SetBigFlameSpeed(input);
+        particleHolder.SetSmallFlameSpeed(input);
     }
 
     public void SpawnRocket()
@@ -139,13 +150,15 @@ public class RocketControl : MonoBehaviour
         // Spawn the rocket
         rocket = Instantiate(rocketPrefab, spawnPosition, Quaternion.identity);
         rocketRB = rocket.GetComponent<Rigidbody>();
+        particleHolder = rocket.GetComponentInChildren<SUI_particleSystemsHolder>();
 
         // Hide spawn rocket button
         spawnButton.SetActive(false);
         despawnButton.SetActive(true);
         throttleSlider.gameObject.SetActive(true);
         throttleSlider.value = 0f;
-        
+        particleHolder.SetFlamesToZero();
+
         if (!tangibleRotation)
         {
             dragButton.SetActive(true);

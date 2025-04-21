@@ -11,7 +11,7 @@ public class ControlTimeWithDistance : MonoBehaviour
     private AddSliderMarks addSliderMarks;
     private const int particleSystemMaxPlaybackTime = 10;
 
-    private double distanceStart = 1.3; // Start of visualization
+    private double distanceStart = 0.9f; // Start of visualization
     private double distanceEnd = 4.0;   // End of visualization
 
     private double timeStart = 0.0;
