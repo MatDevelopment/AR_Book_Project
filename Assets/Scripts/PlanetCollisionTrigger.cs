@@ -12,9 +12,13 @@ public class PlanetCollisionTrigger : MonoBehaviour
     
     [SerializeField]
     GameObject marsEnterPanel;
+    [SerializeField]
+    GameObject marsEnterPanelVertical;
 
     [SerializeField]
     GameObject earthEnterPanel;
+    [SerializeField]
+    GameObject earthEnterPanelVertical;
 
     [Header("Other Scripts Needed")]
     [SerializeField]
@@ -28,7 +32,15 @@ public class PlanetCollisionTrigger : MonoBehaviour
     private void Start()
     {
         marsEnterPanel.SetActive(false);
+        marsEnterPanelVertical.SetActive(false);
         earthEnterPanel.SetActive(false);
+        earthEnterPanelVertical.SetActive(false);
+
+        if (rocketControl.tangibleRotation)
+        {
+            marsEnterPanel = marsEnterPanelVertical;
+            earthEnterPanel = earthEnterPanelVertical;
+        }
     }
 
     void OnTriggerEnter(Collider other)

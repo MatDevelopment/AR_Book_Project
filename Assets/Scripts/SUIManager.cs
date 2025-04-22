@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -29,23 +31,46 @@ public class SUIManager : MonoBehaviour
 
     private string filePath;
 
+    // Average lowest 1% framerate
+    // Counter for when model target tracking
+    private int modelTrackingCount = 0;
+    private List<float> trackingTimestamps = new List<float>();
+
     // Frame Stutter Detection
     [Header("Frame Stutters")]
     public float stutterThreshold = 15f;
 
     private int stutterCount = 0;
+    private List<float> stutterTimestamps = new List<float>();
 
     [Header("UI Elements")]
     [SerializeField] private string currentCondition = "Condition: ";
     [SerializeField] private TextMeshProUGUI currentConditionText;
+    [SerializeField] private TextMeshProUGUI currentConditionTextVertical;
     [SerializeField] private TextMeshProUGUI logLocationText;
+    [SerializeField] private TextMeshProUGUI logLocationTextVertical;
     [SerializeField] private GameObject SUIStartScreen;
+    [SerializeField] private GameObject SUIStartScreenVertical;
     [SerializeField] private GameObject SUIStopScreen;
+    [SerializeField] private GameObject SUIStopScreenVertical;
+
+    [SerializeField] private RocketControl rocketControl;
 
     void Start()
     {
         string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         filePath = Path.Combine(Application.persistentDataPath, $"{currentCondition}_session_{timestamp}.txt");
+
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = Convert.ToInt32(Math.Round(Screen.currentResolution.refreshRateRatio.value));
+
+        if (rocketControl.tangibleRotation)
+        {
+            SUIStartScreen = SUIStartScreenVertical;
+            SUIStopScreen = SUIStopScreenVertical;
+            currentConditionText = currentConditionTextVertical;
+            logLocationText = logLocationTextVertical;
+        }
 
         currentConditionText.text = currentCondition;
 
@@ -79,8 +104,16 @@ public class SUIManager : MonoBehaviour
         if (fps < stutterThreshold)
         {
             stutterCount++;
-            // stutterTimestamps.Add(Time.time);
+            float currentSessionTime = totalSessionTime;
+            stutterTimestamps.Add(currentSessionTime);
         }
+    }
+
+    public void CountModelTracking()
+    {
+        modelTrackingCount++;
+        float currentSessionTime = totalSessionTime;
+        trackingTimestamps.Add(currentSessionTime);
     }
 
     public void StartSession()
@@ -122,20 +155,38 @@ public class SUIManager : MonoBehaviour
             maxFps = Mathf.Max(maxFps, snap.fps);
         }
 
+        // 1% low FPS calculation
+        // Sort FPS values (slowest to fastest)
+        var fpsValues = samples.Select(s => s.fps).OrderBy(fps => fps).ToList();
+
+        int onePercentCount = Mathf.Max(1, Mathf.FloorToInt(fpsValues.Count * 0.1f));
+        float onePercentLowAvg = fpsValues.Take(onePercentCount).Average();
+
         int count = samples.Count;
         avgFps /= count;
         avgAlloc /= count;
         avgReserved /= count;
         avgMono /= count;
 
-        string result = $"Session Summary ({System.DateTime.Now}):\n" +
+        string result = $"Session Summary ({currentCondition}) ({System.DateTime.Now}):\n" +
                         $"Total Session Time: {totalSessionTime}\n" +
                         $"Samples: {count}\n" +
-                        $"Average FPS: {avgFps:F1}, Min: {minFps:F1}, Max: {maxFps:F1}\n" +
+                        $"Average FPS: {avgFps:F1}, Min: {minFps:F1}, Max: {maxFps:F1}, 10%LowAvg: {onePercentLowAvg:F1}\n" +
                         $"Stutters Detected (< {stutterThreshold} FPS): {stutterCount}\n" +
+                        $"Tracking Detected: {modelTrackingCount}\n" +
                         $"Average Allocated Memory (MB): {avgAlloc:F2}\n" +
                         $"Average Reserved Memory (MB): {avgReserved:F2}\n" +
                         $"Average Mono Memory (MB): {avgMono:F2}\n\n";
+
+        if (stutterTimestamps.Count > 0)
+        {
+            result += "Stutter Times (sec): " + string.Join(", ", stutterTimestamps.ConvertAll(t => t.ToString("F1"))) + "\n";
+        }
+
+        if (trackingTimestamps.Count > 0)
+        {
+            result += "Tracking Times (sec): " + string.Join(", ", trackingTimestamps.ConvertAll(t => t.ToString("F1"))) + "\n";
+        }
 
         File.AppendAllText(filePath, result);
         Debug.Log("Performance session ended. Summary saved to file:\n" + filePath);

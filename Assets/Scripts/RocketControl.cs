@@ -41,7 +41,8 @@ public class RocketControl : MonoBehaviour
     private bool isDragging = false;
 
     [Header("Tangible Rotation")]
-    [SerializeField] private bool tangibleRotation = false;
+    public bool tangibleRotation = false;
+    public bool fullyTangible = false;
     [SerializeField] private GameObject modelTarget;
 
     [Header("Rocket Particles")]
@@ -123,7 +124,10 @@ public class RocketControl : MonoBehaviour
         }
 
         // Activates the appropriate spawn button
-        spawnButton.SetActive(true);
+        if (!fullyTangible)
+        {
+            spawnButton.SetActive(true);
+        }
 
         //Adds a listener to the slider and invokes a method when the value changes.
         throttleSlider.onValueChanged.AddListener(delegate { SliderValueChangeCheck(); });
