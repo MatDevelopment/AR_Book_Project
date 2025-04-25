@@ -21556,13 +21556,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5726973389277509723}
     - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5726973389277509723}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetCompletedSceneBoolTrue
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: QuestionManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: RocketScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457961141935539647, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1905774958401453609, guid: a522213cdcb3d3845b3277ed153e4707,
         type: 3}
