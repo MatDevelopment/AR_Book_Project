@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -13,6 +15,36 @@ public static class ExtensionMethods
     /// <param name="targetMin">The minimum value of the target range.</param>
     /// <param name="targetMax">The maximum value of the target range.</param>
     /// <returns>The remapped value within the target range.</returns>
+
+    public static IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup, bool fadeIn, float duration)
+    {
+       
+        float targetAlpha = fadeIn ? 1f : 0f;
+        float initialAlpha = fadeIn ? 0f : 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(initialAlpha, targetAlpha, elapsed / duration);
+            yield return null;
+        }
+        canvasGroup.alpha = targetAlpha;
+    }
+    public static  IEnumerator FadeTextIn(TextMeshProUGUI text, float duration)
+    {
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, elapsed / duration);
+            text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+            yield return null;
+        }
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
+    }
 
     public static double Remap(double value, double from1, double to1, double from2, double to2)
     {

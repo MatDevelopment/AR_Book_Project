@@ -89,7 +89,7 @@ public class QuestionManager : MonoBehaviour
     public void StartAfterquizSession()
     {
         // Fade in the afterQuizContainerGroup
-        StartCoroutine(FadeCanvasGroup(afterQuizContainerGroup, true, 1f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, true, 1f));
         StartCoroutine(ShowQuestionsSequentially());
     }
 
@@ -107,7 +107,7 @@ public class QuestionManager : MonoBehaviour
         }
 
         // Fade out the afterQuizContainerGroup when all questions are shown
-        StartCoroutine(FadeCanvasGroup(afterQuizContainerGroup, false, 1f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, false, 1f));
 
         yield return new WaitForSeconds(1f);
         EndSessionFinished = true;
@@ -117,12 +117,12 @@ public class QuestionManager : MonoBehaviour
     public void ShowNextExerciseButton()
     {
         CG_NextExerciseButton.gameObject.SetActive(true);
-        StartCoroutine(FadeCanvasGroup(CG_NextExerciseButton, true, 1f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_NextExerciseButton, true, 1f));
     }
 
     public void HideNextExerciseButton()
     {
-        StartCoroutine(FadeCanvasGroup(CG_NextExerciseButton, false, 0.5f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_NextExerciseButton, false, 0.5f));
         StartCoroutine(DisableGameObjectAfterFade(CG_NextExerciseButton.gameObject, 0.5f));
     }
 
@@ -136,11 +136,37 @@ public class QuestionManager : MonoBehaviour
     {
         if (EndSessionFinished)
         {
+            SetCompletedSceneBoolTrue();
             DataLogger.Instance.AddQuestionsToAnsweredQuetions(questions);
             DataLogger.Instance.AddTimeSpentInScene();
 
-            // Smooth transition to next scene
-            StartCoroutine(LoadSceneWithTransition(sceneName));
+            if(DataLogger.Instance.userCompletedBigBangScene && DataLogger.Instance.userCompletedRoverScene && DataLogger.Instance.userCompletedPlanetScene)
+            {
+                DataLogger.Instance.SaveLogAtEnd();
+         
+                StartCoroutine(LoadSceneWithTransition("EndScene"));
+            }
+            else
+                StartCoroutine(LoadSceneWithTransition(sceneName));
+
+
+        }
+    }
+
+    public void SetCompletedSceneBoolTrue()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "BigBangScene":
+                DataLogger.Instance.userCompletedBigBangScene = true;
+                break;
+            case "RoverScene":
+                DataLogger.Instance.userCompletedRoverScene = true;
+                break;
+            case "PlanetScene":
+                DataLogger.Instance.userCompletedPlanetScene = true;
+                break;
         }
     }
 
@@ -184,11 +210,11 @@ public class QuestionManager : MonoBehaviour
         // Smoothly show correct/incorrect icons
         if (question.userAnswer == question.correctAnswerIndex)
         {
-            StartCoroutine(FadeCanvasGroup(IconCorrect, true, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, true, 0.5f));
         }
         else
         {
-            StartCoroutine(FadeCanvasGroup(IconIncorrect, true, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, true, 0.5f));
         }
         yield return new WaitForSeconds(0.5f);
 
@@ -216,43 +242,22 @@ public class QuestionManager : MonoBehaviour
 
     private void HideCorrectIncorrectIcons()
     {
-        StartCoroutine(FadeCanvasGroup(IconCorrect, false, 0.5f));
-        StartCoroutine(FadeCanvasGroup(IconIncorrect, false, 0.5f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, false, 0.5f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, false, 0.5f));
     }
 
     private void ShowCorrectIncorrectIcons(bool isCorrect)
     {
         if (isCorrect)
         {
-            StartCoroutine(FadeCanvasGroup(IconCorrect, true, 0.5f));
-            StartCoroutine(FadeCanvasGroup(IconIncorrect, false, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, true, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, false, 0.5f));
         }
         else
         {
-            StartCoroutine(FadeCanvasGroup(IconCorrect, false, 0.5f));
-            StartCoroutine(FadeCanvasGroup(IconIncorrect, true, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, false, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, true, 0.5f));
         }
-    }
-
-    /// <summary>
-    /// Fades the given CanvasGroup either in or out smoothly over the specified duration.
-    /// </summary>
-    /// <param name="canvasGroup">The CanvasGroup to fade.</param>
-    /// <param name="fadeIn">If true, fades in; if false, fades out.</param>
-    /// <param name="duration">The duration of the fade.</param>
-    private IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup, bool fadeIn, float duration)
-    {
-        float targetAlpha = fadeIn ? 1f : 0f;
-        float initialAlpha = canvasGroup.alpha;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(initialAlpha, targetAlpha, elapsed / duration);
-            yield return null;
-        }
-        canvasGroup.alpha = targetAlpha;
     }
 
     private void SetClearTextColorAllAfterQuizText()
@@ -267,25 +272,12 @@ public class QuestionManager : MonoBehaviour
     public void ShowYouNeedToAnswerAllQuestionsText()
     {
         AnswerAllQuestionText.gameObject.SetActive(true);
-        StartCoroutine(FadeTextIn(AnswerAllQuestionText, 0.3f));
+        StartCoroutine(ExtensionMethods.FadeTextIn(AnswerAllQuestionText, 0.3f));
         StartCoroutine(PingOpenQuestionPanelButton());
         StartCoroutine(HideTextAfterDelay(AnswerAllQuestionText, 3f));
     }
 
-    private IEnumerator FadeTextIn(TextMeshProUGUI text, float duration)
-    {
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0, 1, elapsed / duration);
-            text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
-            yield return null;
-        }
-        text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
-    }
+  
 
     private IEnumerator HideTextAfterDelay(TextMeshProUGUI text, float delay)
     {
@@ -348,12 +340,12 @@ public class QuestionManager : MonoBehaviour
     public void ShowAfterQuizSection()
     {
         CG_AfterQuizSection.gameObject.SetActive(true);
-        StartCoroutine(FadeCanvasGroup(CG_AfterQuizSection, true, 1f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_AfterQuizSection, true, 1f));
     }
 
     public void HideAfterQuizSection()
     {
-        StartCoroutine(FadeCanvasGroup(CG_AfterQuizSection, false, 0.5f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_AfterQuizSection, false, 0.5f));
         StartCoroutine(DisableGameObjectAfterFade(CG_AfterQuizSection.gameObject, 0.5f));
     }
 
@@ -419,7 +411,7 @@ public class QuestionManager : MonoBehaviour
         rectTransform.localRotation = Quaternion.Euler(0, 0, targetRotation);
     }
 
-    private IEnumerator ScaleRectTransform(RectTransform rectTransform, Vector3 targetScale, float duration)
+    private IEnumerator ScaleRectTransformScaleRectTransform(RectTransform rectTransform, Vector3 targetScale, float duration)
     {
         Vector3 startScale = rectTransform.localScale;
         float elapsed = 0f;
@@ -446,8 +438,8 @@ public class QuestionManager : MonoBehaviour
             StartCoroutine(MoveRecttransform(questionsPanel, new Vector2(-1075, 0), panelAnimationDuration));
         }
 
-        StartCoroutine(FadeCanvasGroup(CG_IconQuestionmark, true, 0.7f));
-        StartCoroutine(FadeCanvasGroup(CG_IconArrow, false, 0.7f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_IconQuestionmark, true, 0.8f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_IconArrow, false, 0.3f));
         StartCoroutine(RotateRecttransform(CG_IconArrow.GetComponent<RectTransform>(), 90, 0.8f));
     }
 
@@ -462,8 +454,8 @@ public class QuestionManager : MonoBehaviour
             StartCoroutine(MoveRecttransform(questionsPanel, new Vector2(-100f, 0), panelAnimationDuration));
         }
 
-        StartCoroutine(FadeCanvasGroup(CG_IconQuestionmark, false, 0.7f));
-        StartCoroutine(FadeCanvasGroup(CG_IconArrow, true, 0.7f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_IconQuestionmark, false, 0.3f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(CG_IconArrow, true, 0.8f));
         StartCoroutine(RotateRecttransform(CG_IconArrow.GetComponent<RectTransform>(), -90, 0.8f));
     }
 }

@@ -12,6 +12,10 @@ using UnityEngine.Android;
 public class DataLogger : MonoBehaviour
 {
     public static DataLogger Instance;
+    [Header("Has user completed these scenes?")]
+    public bool userCompletedBigBangScene = false;
+    public bool userCompletedRoverScene = false;
+    public bool userCompletedPlanetScene = false;
 
     public List<Question> AnsweredUserQuestions = new List<Question>();
     public Dictionary<string, float> TimeSpentInScenes = new Dictionary<string, float>();
@@ -21,7 +25,9 @@ public class DataLogger : MonoBehaviour
     private string currentSceneName;
 
     public Button EndButton;
+    public CanvasGroup ThankYouText;
 
+    public bool LogSaved = false;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -91,6 +97,7 @@ public class DataLogger : MonoBehaviour
             ShowEndButton();
         }
     }
+    
 
     private void OnEnable()
     {
@@ -104,14 +111,14 @@ public class DataLogger : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnApplicationPause(bool pauseStatus)
-    {
-        if (pauseStatus) // If the application is being paused
-        {
-            AddTimeSpentInScene(); // Add the scene time
-            SaveLog("Saved on application pause!");
-        }
-    }
+    //private void OnApplicationPause(bool pauseStatus)
+    //{
+    //    if (pauseStatus) // If the application is being paused
+    //    {
+    //        AddTimeSpentInScene(); // Add the scene time
+    //        SaveLog("Saved on application pause!");
+    //    }
+    //}
 
     [System.Serializable]
     public class SceneTimeInfo
@@ -120,7 +127,7 @@ public class DataLogger : MonoBehaviour
         public float timeSpent;
     }
 
-    public void SaveLog(string addedTextAtStart)
+    private void SaveLog(string addedTextAtStart)
     {
         // First add the current scene's time
         float currentTime = timeSpentInCurrentScene;
@@ -190,7 +197,7 @@ public class DataLogger : MonoBehaviour
                 Debug.LogWarning("Could not register file with Android media scanner: " + e.Message);
                 // Non-critical error, so we continue
             }
-#endif
+#endif 
         }
         catch (System.Exception e)
         {
@@ -201,55 +208,59 @@ public class DataLogger : MonoBehaviour
         timeSpentInCurrentScene = currentTime;
     }
 
-    private void OnApplicationQuit()
-    {
-        QuitGame();
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    QuitGame();
+    //}
 
-    public void QuitGame()
+    public void SaveLogAtEnd()
     {
+        ExtensionMethods.FadeCanvasGroup(EndButton.GetComponent<CanvasGroup>(), false, 0.5f); // Fade out the thank you text
+        ThankYouText.gameObject.SetActive(true);
+        ExtensionMethods.FadeCanvasGroup(ThankYouText, true, 0.6f); // Fade out the thank you text
+
         AddTimeSpentInScene(); // Add the final scene time
         SaveLog("Saved on application Quit!");
-
-#if UNITY_ANDROID
-        // First minimize the app
-        MoveAndroidApplicationToBack();
-
-        // Then use more forceful method to quit on Android
-        try
-        {
-            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-            activity.Call("finishAndRemoveTask");
-
-            // As a fallback, also try to kill the process directly
-            AndroidJavaObject process = new AndroidJavaClass("android.os.Process");
-            int pid = process.CallStatic<int>("myPid");
-            process.CallStatic("killProcess", pid);
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Failed to exit Android app: " + e.Message);
-            // Fallback to standard quit
-            Application.Quit(0);
-        }
-#else
-        Application.Quit();
-#endif
-    }
-
-    public static void MoveAndroidApplicationToBack()
-    {
-#if UNITY_ANDROID
-        try
-        {
-            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-            activity.Call<bool>("moveTaskToBack", true);
-            Debug.Log("Application minimized successfully");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Failed to minimize application: " + e.Message);
-        }
-#endif
     }
 }
+//#if UNITY_ANDROID
+//        // First minimize the app
+//        MoveAndroidApplicationToBack();
+
+//        // Then use more forceful method to quit on Android
+//        try
+//        {
+//            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+//            activity.Call("finishAndRemoveTask");
+
+//            // As a fallback, also try to kill the process directly
+//            AndroidJavaObject process = new AndroidJavaClass("android.os.Process");
+//            int pid = process.CallStatic<int>("myPid");
+//            process.CallStatic("killProcess", pid);
+//        }
+//        catch (System.Exception e)
+//        {
+//            Debug.LogError("Failed to exit Android app: " + e.Message);
+//            // Fallback to standard quit
+//            Application.Quit(0);
+//        }
+//#else
+//        Application.Quit();
+//#endif
+//    }
+
+//    public static void MoveAndroidApplicationToBack()
+//    {
+//#if UNITY_ANDROID
+//        try
+//        {
+//            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+//            activity.Call<bool>("moveTaskToBack", true);
+//            Debug.Log("Application minimized successfully");
+//        }
+//        catch (System.Exception e)
+//        {
+//            Debug.LogError("Failed to minimize application: " + e.Message);
+//        }
+//#endif
+//    }

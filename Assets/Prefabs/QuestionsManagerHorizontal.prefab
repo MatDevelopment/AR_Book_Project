@@ -3009,6 +3009,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 8175488176384492676, guid: aa74ab77d56191949acccb7b1bdea7e0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175488176384492676, guid: aa74ab77d56191949acccb7b1bdea7e0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6133956016441442081}
+    - target: {fileID: 8175488176384492676, guid: aa74ab77d56191949acccb7b1bdea7e0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetCompletedSceneBoolTrue
+      objectReference: {fileID: 0}
     - target: {fileID: 8556982841411370251, guid: aa74ab77d56191949acccb7b1bdea7e0,
         type: 3}
       propertyPath: m_Name
