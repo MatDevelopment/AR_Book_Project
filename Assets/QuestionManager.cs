@@ -29,8 +29,10 @@ public class QuestionManager : MonoBehaviour
     private float buttonPingScale = 1.2f;
     private float panelAnimationDuration = 0.7f; // Reduced from 1.0f to make it faster
 
+    public SoundEffectManager SoundEffectManager;
     void Start()
     {
+        SoundEffectManager= GetComponentInChildren<SoundEffectManager>();
         if (debugfinishButton)
             debugfinishButton.gameObject.SetActive(true);
 
@@ -148,8 +150,6 @@ public class QuestionManager : MonoBehaviour
             }
             else
                 StartCoroutine(LoadSceneWithTransition(sceneName));
-
-
         }
     }
 
@@ -211,17 +211,21 @@ public class QuestionManager : MonoBehaviour
         if (question.userAnswer == question.correctAnswerIndex)
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, true, 0.5f));
+            SoundEffectManager.PlaySingleSound("CorrectAnswer");
+
         }
         else
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, true, 0.5f));
+            SoundEffectManager.PlaySingleSound("WrongAnswer");
+
         }
         yield return new WaitForSeconds(0.5f);
-
     }
 
     private IEnumerator SetTextColorAfterDelay(TextMeshProUGUI textToShow, float delay)
     {
+        SoundEffectManager.PlaySingleSound("UIBeep");
         yield return new WaitForSeconds(delay);
 
         // Smoothly fade in the text
@@ -236,14 +240,14 @@ public class QuestionManager : MonoBehaviour
             textToShow.color = Color.Lerp(startColor, targetColor, elapsed / duration);
             yield return null;
         }
-
         textToShow.color = targetColor;
+       
     }
 
     private void HideCorrectIncorrectIcons()
     {
-        StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, false, 0.5f));
-        StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, false, 0.5f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, false, 0.0f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, false, 0.0f));
     }
 
     private void ShowCorrectIncorrectIcons(bool isCorrect)
@@ -252,11 +256,13 @@ public class QuestionManager : MonoBehaviour
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, true, 0.5f));
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, false, 0.5f));
+            SoundEffectManager.PlaySingleSound("CorrectAnswer");
         }
         else
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, false, 0.5f));
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, true, 0.5f));
+            SoundEffectManager.PlaySingleSound("WrongAnswer");
         }
     }
 
@@ -276,8 +282,6 @@ public class QuestionManager : MonoBehaviour
         StartCoroutine(PingOpenQuestionPanelButton());
         StartCoroutine(HideTextAfterDelay(AnswerAllQuestionText, 3f));
     }
-
-  
 
     private IEnumerator HideTextAfterDelay(TextMeshProUGUI text, float delay)
     {
@@ -357,6 +361,7 @@ public class QuestionManager : MonoBehaviour
 
     public void TogglePanelVisibility()
     {
+        SoundEffectManager.PlaySingleSound("UIBeep");
         if (panelHidden)
         {
             ShowQuestionsPanel();

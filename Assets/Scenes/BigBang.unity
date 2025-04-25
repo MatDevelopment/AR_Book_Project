@@ -92971,12 +92971,12 @@ PrefabInstance:
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
@@ -92996,12 +92996,12 @@ PrefabInstance:
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadScene
+      value: SetCompletedSceneBoolTrue
       objectReference: {fileID: 0}
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetCompletedSceneBoolTrue
+      value: LoadScene
       objectReference: {fileID: 0}
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
@@ -93011,6 +93011,11 @@ PrefabInstance:
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: RocketScene
       objectReference: {fileID: 0}
     - target: {fileID: 6848248590998496464, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
