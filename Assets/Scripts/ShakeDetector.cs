@@ -23,7 +23,7 @@ public class ShakeDetector : MonoBehaviour
     [Header("Events")]
     [Tooltip("Event triggered when a shake is detected.")]
     public UnityEvent OnShake; // Event that other scripts or components can subscribe to via the Inspector
-
+    
     // Private variables for tracking movement
     private float lastPositionY;
     private float lastVelocityY;
