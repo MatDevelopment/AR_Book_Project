@@ -12,6 +12,9 @@ public class SpawnDrill : MonoBehaviour
     {
         Vector3 spawnPosition = XROrigin_Transform.transform.position +
                                 XROrigin_Transform.transform.forward * distanceFromCamera;
-        Instantiate(DrillToSpawn, spawnPosition, Quaternion.identity);
+        // Instantiate(DrillToSpawn, spawnPosition, Quaternion.identity);
+
+        DrillToSpawn.SetActive(true);
+        DrillToSpawn.transform.position = spawnPosition;
     }
 }

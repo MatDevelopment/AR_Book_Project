@@ -1664,6 +1664,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254284773}
   m_CullTransparentMesh: 1
+--- !u!1 &275490063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2496330155737056380, guid: 64bbccbc7d14b97438833b88efff26c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8861915550028034998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &291742867
 GameObject:
   m_ObjectHideFlags: 0
@@ -7126,8 +7132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XROrigin_Transform: {fileID: 1295329898}
-  DrillToSpawn: {fileID: 2496330155737056380, guid: 64bbccbc7d14b97438833b88efff26c5,
-    type: 3}
+  DrillToSpawn: {fileID: 275490063}
 --- !u!1 &1897215980
 GameObject:
   m_ObjectHideFlags: 0
