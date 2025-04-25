@@ -15,7 +15,7 @@ public class DataLogger : MonoBehaviour
     [Header("Has user completed these scenes?")]
     public bool userCompletedBigBangScene = false;
     public bool userCompletedRoverScene = false;
-    public bool userCompletedPlanetScene = false;
+    public bool userCompletedDiggingScene = false;
 
     public List<Question> AnsweredUserQuestions = new List<Question>();
     public Dictionary<string, float> TimeSpentInScenes = new Dictionary<string, float>();

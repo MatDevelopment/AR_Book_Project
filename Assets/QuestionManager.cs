@@ -142,7 +142,7 @@ public class QuestionManager : MonoBehaviour
             DataLogger.Instance.AddQuestionsToAnsweredQuetions(questions);
             DataLogger.Instance.AddTimeSpentInScene();
 
-            if(DataLogger.Instance.userCompletedBigBangScene && DataLogger.Instance.userCompletedRoverScene && DataLogger.Instance.userCompletedPlanetScene)
+            if(DataLogger.Instance.userCompletedBigBangScene && DataLogger.Instance.userCompletedRoverScene && DataLogger.Instance.userCompletedDiggingScene)
             {
                 DataLogger.Instance.SaveLogAtEnd();
          
@@ -158,14 +158,14 @@ public class QuestionManager : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
         {
-            case "BigBangScene":
+            case "BigBang":
                 DataLogger.Instance.userCompletedBigBangScene = true;
                 break;
             case "RoverScene":
                 DataLogger.Instance.userCompletedRoverScene = true;
                 break;
-            case "PlanetScene":
-                DataLogger.Instance.userCompletedPlanetScene = true;
+            case "DiggingMechanic":
+                DataLogger.Instance.userCompletedDiggingScene = true;
                 break;
         }
     }
