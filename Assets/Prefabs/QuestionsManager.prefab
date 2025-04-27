@@ -453,6 +453,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 39c972a8f98bca6439f99179befe68ff, type: 3}
     volume: 1
     pitchRange: {x: 0.9, y: 1.1}
+  - name: MenuHover
+    clip: {fileID: 8300000, guid: 8515f05e47c4d1d4981ffc3845abc159, type: 3}
+    volume: 1
+    pitchRange: {x: 0.9, y: 1.1}
+  - name: MenuHover2
+    clip: {fileID: 8300000, guid: 8515f05e47c4d1d4981ffc3845abc159, type: 3}
+    volume: 0.8
+    pitchRange: {x: 0.9, y: 1.1}
 --- !u!1 &1655393312268699554
 GameObject:
   m_ObjectHideFlags: 0

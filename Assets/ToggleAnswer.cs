@@ -14,7 +14,7 @@ public class ToggleAnswer : MonoBehaviour
     }
     public void ToggleAnswerInParent()
     {
-        FindAnyObjectByType<SoundEffectManager>().PlaySingleSound("UIBeep");
+        FindAnyObjectByType<SoundEffectManager>().PlaySingleSound("MenuHover2");
         parentQuestion.userAnswer = answerIndex;
         parentToggleGroup.allowSwitchOff = false;
     }

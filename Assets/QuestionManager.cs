@@ -225,12 +225,12 @@ public class QuestionManager : MonoBehaviour
 
     private IEnumerator SetTextColorAfterDelay(TextMeshProUGUI textToShow, float delay)
     {
-        SoundEffectManager.PlaySingleSound("UIBeep");
+        SoundEffectManager.PlaySingleSound("Beep");
         yield return new WaitForSeconds(delay);
 
         // Smoothly fade in the text
         Color startColor = textToShow.color;
-        Color targetColor = Color.white;
+        Color targetColor = Color.black;
         float elapsed = 0f;
         float duration = 0.5f;
 
@@ -361,7 +361,7 @@ public class QuestionManager : MonoBehaviour
 
     public void TogglePanelVisibility()
     {
-        SoundEffectManager.PlaySingleSound("UIBeep");
+        SoundEffectManager.PlaySingleSound("MenuHover");
         if (panelHidden)
         {
             ShowQuestionsPanel();

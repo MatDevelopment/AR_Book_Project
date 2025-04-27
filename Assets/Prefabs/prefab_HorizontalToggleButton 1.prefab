@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4304800208110268408
 CanvasRenderer:
@@ -161,7 +161,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &1860755692732432957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +174,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35964f173ba175b4c83e24b28eb5ae23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherToggles: []
+  answerIndex: -1
+  parentQuestion:
+    userAnswer: -1
+    questionText: 
+    possibleAnswers: []
+    correctAnswerIndex: 0
+  parentToggleGroup: {fileID: 0}
 --- !u!1 &7631844483523033713
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 37.8, y: 0}
+  m_AnchoredPosition: {x: 67, y: 0}
   m_SizeDelta: {x: 700, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3650177418252850323
@@ -268,8 +274,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -348,7 +354,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 40, y: 40}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1240836803566793755
 CanvasRenderer:
