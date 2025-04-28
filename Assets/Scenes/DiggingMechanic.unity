@@ -9277,7 +9277,7 @@ PrefabInstance:
     - target: {fileID: 8490224267841467490, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: drillStepPercent
-      value: 0.1
+      value: 0.065
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
