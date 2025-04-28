@@ -174,6 +174,7 @@ public class RoverRockCrushing : MonoBehaviour
             artifacts.Remove(chosenArtifact);
         } else {
             // Update UI
+            StopAllCoroutines();
             nameText.text = $"Normal Sten";
             chemicalPropertiesText.text = $"Små Mineraler";
             biosignatureText.text = $"Intet tegn på liv";

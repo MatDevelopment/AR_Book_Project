@@ -9,7 +9,8 @@ public class PlanetCollisionTrigger : MonoBehaviour
 
     [SerializeField]
     string currentPlanet = "planetName";
-    
+
+    [Header("UI Elements")]
     [SerializeField]
     GameObject marsEnterPanel;
     [SerializeField]
@@ -19,6 +20,16 @@ public class PlanetCollisionTrigger : MonoBehaviour
     GameObject earthEnterPanel;
     [SerializeField]
     GameObject earthEnterPanelVertical;
+
+    [SerializeField]
+    GameObject tutorialText;
+
+    [Header("Selection Hologram")]
+    [SerializeField] GameObject hologramObject;
+    [SerializeField] Material disabledMaterial;
+    private bool marsDisabled = false;
+    private bool earthDisabled = false;
+    private Renderer hologramRenderer;
 
     [Header("Other Scripts Needed")]
     [SerializeField]
@@ -35,11 +46,27 @@ public class PlanetCollisionTrigger : MonoBehaviour
         marsEnterPanelVertical.SetActive(false);
         earthEnterPanel.SetActive(false);
         earthEnterPanelVertical.SetActive(false);
+        tutorialText.SetActive(false);
 
         if (rocketControl.tangibleRotation)
         {
             marsEnterPanel = marsEnterPanelVertical;
             earthEnterPanel = earthEnterPanelVertical;
+        }
+
+        // Changing the color of the hologram and disabling if exercise is already completed
+        hologramRenderer = hologramObject.GetComponent<Renderer>();
+
+        if (DataLogger.Instance.userCompletedRoverScene && currentPlanet == "Mars")
+        {
+            marsDisabled = true;
+            hologramRenderer.material = disabledMaterial;
+        }
+
+        if (DataLogger.Instance.userCompletedDiggingScene && currentPlanet == "Earth")
+        {
+            earthDisabled = true;
+            hologramRenderer.material = disabledMaterial;
         }
     }
 
@@ -63,13 +90,20 @@ public class PlanetCollisionTrigger : MonoBehaviour
             return;
         }
 
+        if (tutorialText.activeInHierarchy)
+        {
+            tutorialText.SetActive(false);
+        }
+
         switch (currentPlanet)
         {
             case "Earth":
+                if (earthDisabled) { break; }
                 earthEnterPanel.SetActive(true);
                 solarSystemManager.StopAllPlanetsRotating();
                 break;
             case "Mars":
+                if (marsDisabled) { break; }
                 marsEnterPanel.SetActive(true);
                 solarSystemManager.StopAllPlanetsRotating();
                 break;

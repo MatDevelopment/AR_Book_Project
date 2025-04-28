@@ -18,6 +18,9 @@ public class RoverControl : MonoBehaviour
     public GameObject movementButtons;
     public GameObject eventPanel;
     public GameObject scanEnvPanel;
+    public GameObject tutorialIntroText;
+    public GameObject tutorialQuestionText;
+    private bool firstArtifactGiven = true;
     private RoverRockCrushing roverRockCrushing;
 
     [Header("Movement")]
@@ -62,6 +65,7 @@ public class RoverControl : MonoBehaviour
         eventPanel.SetActive(false);
         movementButtons.SetActive(false);
         scanEnvPanel.SetActive(true);
+        tutorialIntroText.SetActive(false);
 
         // Accessing rockcrushing script
         roverRockCrushing = eventPanel.GetComponent<RoverRockCrushing>();
@@ -124,6 +128,8 @@ public class RoverControl : MonoBehaviour
     {
         spawnButton.SetActive(true);
         scanEnvPanel.SetActive(false);
+
+        tutorialIntroText.SetActive(true);
     }
 
     public void SpawnRover()
@@ -292,6 +298,12 @@ public class RoverControl : MonoBehaviour
             roverSoundEffectManager.PlaySingleSound("button_click");
         }
         
+        // Remove Tutorial Text if still showing
+        if (tutorialIntroText.activeInHierarchy)
+        {
+            tutorialIntroText.SetActive(false);
+        }
+
         // Remove and Update list of objects
         nearestObject.SetActive(false);
         UpdateListOfRoverEvents();
@@ -319,5 +331,12 @@ public class RoverControl : MonoBehaviour
         // Show UI Buttons
         movementButtons.SetActive(true);
         despawnButton.SetActive(true);
+
+        // Show hint to make user open QuestionsPanel
+        if (firstArtifactGiven)
+        {
+            tutorialQuestionText.SetActive(true);
+            firstArtifactGiven = false;
+        }
     }
 }
