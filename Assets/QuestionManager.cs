@@ -24,19 +24,20 @@ public class QuestionManager : MonoBehaviour
     [SerializeField]
     private bool panelHidden = true;
 
+
     // Animation parameters
     private float buttonScaleDuration = 0.3f;
     private float buttonPingScale = 1.2f;
     private float panelAnimationDuration = 0.7f; // Reduced from 1.0f to make it faster
 
     public SoundEffectManager SoundEffectManager;
+    public bool hasStartedAfterQuizSession = false;
     void Start()
     {
         SoundEffectManager= GetComponentInChildren<SoundEffectManager>();
         if (debugfinishButton)
             debugfinishButton.gameObject.SetActive(true);
 
-        // Instantiate question boxes for all questions in the list
         for (int i = 0; i < questions.Count; i++)
         {
             GameObject questionBox = Instantiate(questionBoxPrefab, QuestionsParent);
@@ -57,12 +58,19 @@ public class QuestionManager : MonoBehaviour
         }
 
         SetClearTextColorAllAfterQuizText();
-        HideAfterQuizSection();
+        //HideAfterQuizSection();
         HideYouNeedToAnswerAllQuestionsText();
-        HideCorrectIncorrectIcons();
-        HideNextExerciseButton();
+        //HideCorrectIncorrectIcons();
+        //HideNextExerciseButton();
+        HideAllUIWithoutCoroutines();
     }
-
+    private void HideAllUIWithoutCoroutines()
+    {
+        CG_AfterQuizSection.alpha = 0;
+        IconCorrect.alpha = 0;
+        IconIncorrect.alpha = 0;
+        CG_NextExerciseButton.alpha = 0;
+    }
     public void CheckForAllQuestionsAnswered()
     {
         foreach (Question question in questions)
@@ -93,6 +101,7 @@ public class QuestionManager : MonoBehaviour
         // Fade in the afterQuizContainerGroup
         StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, true, 1f));
         StartCoroutine(ShowQuestionsSequentially());
+        hasStartedAfterQuizSession = true;
     }
 
     private IEnumerator ShowQuestionsSequentially()
@@ -212,13 +221,11 @@ public class QuestionManager : MonoBehaviour
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconCorrect, true, 0.5f));
             SoundEffectManager.PlaySingleSound("CorrectAnswer");
-
         }
         else
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(IconIncorrect, true, 0.5f));
             SoundEffectManager.PlaySingleSound("WrongAnswer");
-
         }
         yield return new WaitForSeconds(0.5f);
     }
@@ -241,7 +248,6 @@ public class QuestionManager : MonoBehaviour
             yield return null;
         }
         textToShow.color = targetColor;
-       
     }
 
     private void HideCorrectIncorrectIcons()
@@ -314,7 +320,7 @@ public class QuestionManager : MonoBehaviour
         afterQuizUserAnswerText.text = "";
         afterQuizCorrectAnswerText.text = "";
     }
-    private IEnumerator PingOpenQuestionPanelButton()
+    public IEnumerator PingOpenQuestionPanelButton()
     {
         RectTransform buttonRect = OpenQuestionsPanelButton.GetComponent<RectTransform>();
         Vector3 originalScale = new Vector3(1f, 1f, 1f);
@@ -361,6 +367,12 @@ public class QuestionManager : MonoBehaviour
 
     public void TogglePanelVisibility()
     {
+        if(FindAnyObjectByType<ControlTimeWithDistance>() != null)
+        {
+            FindAnyObjectByType<ControlTimeWithDistance>().HideTutorialInformation();
+        }
+      
+
         SoundEffectManager.PlaySingleSound("MenuHover");
         if (panelHidden)
         {

@@ -4,9 +4,12 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System.Drawing;
+using System.Collections;
 
 public class ControlTimeWithDistance : MonoBehaviour
 {
+    public QuestionManager questionManager;
+    public CanvasGroup TutorialCanvasGroup, WalkingInstructionsCanvasGroup;
     private UI_BigBang uiBigBang;
     private AddSliderMarks addSliderMarks;
     private const int particleSystemMaxPlaybackTime = 10;
@@ -24,6 +27,9 @@ public class ControlTimeWithDistance : MonoBehaviour
     private Vector3 solarSystemParticlesMaximumScale = new Vector3(1.04f, 1.04f, 1.04f);
 
     public GameObject solarSystemParticles;
+
+    public bool hasReachedHydrogenFormation = false;
+    public bool hasShownTutorialText = false;
 
     [SerializeField]
     private float distanceForSolarSystemToSpawn = 8f;
@@ -53,6 +59,9 @@ public class ControlTimeWithDistance : MonoBehaviour
 
     void Start()
     {
+
+        WalkingInstructionsCanvasGroup.alpha = 0;
+        TutorialCanvasGroup.alpha = 0;
 #if UNITY_EDITOR
         CallThisOnTargetFound();
 #endif
@@ -60,6 +69,7 @@ public class ControlTimeWithDistance : MonoBehaviour
 
     public void CallThisOnTargetFound()
     {
+
         if (targetFound) return;
 
         uiBigBang = GetComponent<UI_BigBang>();
@@ -83,6 +93,8 @@ public class ControlTimeWithDistance : MonoBehaviour
         }
         Invoke("SetCanUpdateMarkers", 0.2f);
         targetFound = true;
+
+        ShowWalkInstructions();
     }
 
     private void SetCanUpdateMarkers()
@@ -93,6 +105,7 @@ public class ControlTimeWithDistance : MonoBehaviour
     void Update()
     {
         if (!targetFound) return;
+        if (questionManager.hasStartedAfterQuizSession) return;
 
         // Calculate the distance to the camera using both methods:
         // 1. Transform the offset into camera-local space to remove rotational influence.
@@ -129,6 +142,12 @@ public class ControlTimeWithDistance : MonoBehaviour
                 particleSystemMaxPlaybackTime // max particle system time (10)
             );
         }
+
+        if (timeByDistance > 5 && !hasShownTutorialText) {
+            Invoke("ShowTutorialInformation", 1.8f); 
+            hasShownTutorialText = true;
+        }
+
 
         distanceText.text = "dist: " + distanceToCamera.ToString("F2") + "m";
 
@@ -177,6 +196,30 @@ public class ControlTimeWithDistance : MonoBehaviour
         }
 
         solarSystemObject.transform.position = solarSystemSpawnPointTransform.position;
+    }
+
+    public void ShowWalkInstructions()
+    {
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(WalkingInstructionsCanvasGroup, true, 0.5f));
+        Invoke("HideWalkInstructions", 6.5f);
+    }
+
+    private void HideWalkInstructions()
+    {
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(WalkingInstructionsCanvasGroup, false, 1f));
+    }
+
+    private void ShowTutorialInformation()
+    {
+        questionManager.StartCoroutine(questionManager.PingOpenQuestionPanelButton());
+       StartCoroutine(ExtensionMethods.FadeCanvasGroup(TutorialCanvasGroup, true, 1.4f));
+        
+    }
+
+    public void HideTutorialInformation()
+    {
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(TutorialCanvasGroup, false, 1.5f));
+
     }
 
     private void SetOutlineParticleSize(Vector3 sizeVector)

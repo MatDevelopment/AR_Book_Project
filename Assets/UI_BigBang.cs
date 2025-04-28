@@ -69,7 +69,7 @@ public class UI_BigBang : MonoBehaviour
         }
         else if (inputtime > 6.8f && inputtime <= 7.4f)
         {
-            information = "1 millard år - De første stjerner er så massive at de eksploderer og skyder tungere elementer ud i alle retninger";
+            information = "1 millard år - De første stjerner er så massive at de imploderer og skyder tungere elementer ud i alle retninger";
         }
         else if (inputtime > 7.8f && inputtime <= 8.8f)
         {
@@ -168,16 +168,25 @@ public class UI_BigBang : MonoBehaviour
         if (timeSec < 1)
         {
             double ns = timeSec * 1e9; // convert seconds to nanoseconds
-            return $"{TruncateToTwoDigits(ns)} nanoseconds";
+            return $"{TruncateToTwoDigits(ns)} nanosekunder";
         }
         else if (timeSec < 60)
         {
             return $"{TruncateToTwoDigits(timeSec)} sekunder";
         }
-        else if (timeSec < 3600) // Ny gren: hvis tiden er under én time, konverter til minutter.
+        else if (timeSec < 3600)
         {
             double minutes = timeSec / 60;
             return $"{TruncateToTwoDigits(minutes)} minutter";
+        }
+        else if (timeSec < SecondsPerYear)
+        {
+            double hours = timeSec / 3600;
+            return $"{TruncateToTwoDigits(hours)} timer";
+        }
+        else if (timeYears < 1e3)
+        {
+            return $"{TruncateToTwoDigits(timeYears)} år";
         }
         else if (timeYears < 1e6)
         {
@@ -195,6 +204,7 @@ public class UI_BigBang : MonoBehaviour
             return $"{TruncateToTwoDigits(value)} milliarder år";
         }
     }
+
 
 
     // Helper to reduce the number to two digits before the decimal
