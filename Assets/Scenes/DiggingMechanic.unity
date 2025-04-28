@@ -9422,6 +9422,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1065217755768422592, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065217755768422592, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065217755768422592, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065217755768422592, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2095170908385724787, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: depthUItext
@@ -9610,7 +9630,7 @@ PrefabInstance:
     - target: {fileID: 2496330155737056380, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5358046235513004951, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
@@ -9676,6 +9696,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877503784149886675, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877503784149886675, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877503784149886675, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753445385168202358, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753445385168202358, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753445385168202358, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.73
       objectReference: {fileID: 0}
     - target: {fileID: 7547383781447523298, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
@@ -9746,6 +9796,16 @@ PrefabInstance:
         type: 3}
       propertyPath: drillStepPercent
       value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542582097811691408, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542582097811691408, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.437
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
