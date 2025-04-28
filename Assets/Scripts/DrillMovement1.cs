@@ -52,7 +52,7 @@ public class DrillMovement1 : MonoBehaviour
         float newY = Mathf.Lerp(currentPosition.y, targetY, Time.deltaTime * moveSpeed);
 
         // Optional: Add drill vibration
-        float shakeStrength = 0.01f;
+        float shakeStrength = 0.001f;
         if (Mathf.Abs(targetY - currentPosition.y) > 0.001f)
         {
             float shakeX = Random.Range(-shakeStrength, shakeStrength);

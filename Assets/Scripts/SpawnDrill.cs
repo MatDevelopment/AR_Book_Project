@@ -6,7 +6,7 @@ public class SpawnDrill : MonoBehaviour
 
     [SerializeField] private GameObject DrillToSpawn;
 
-    private float distanceFromCamera = 0.5f;
+    private float distanceFromCamera = 1f;
     
     public void SpawnDrill_ButtonMethod()
     {
@@ -15,6 +15,14 @@ public class SpawnDrill : MonoBehaviour
         // Instantiate(DrillToSpawn, spawnPosition, Quaternion.identity);
 
         DrillToSpawn.SetActive(true);
+        DrillToSpawn.transform.position = spawnPosition;
+    }
+
+    public void ResetDrillPosition()
+    {
+        Vector3 spawnPosition = XROrigin_Transform.transform.position +
+                                XROrigin_Transform.transform.forward * distanceFromCamera;
+        
         DrillToSpawn.transform.position = spawnPosition;
     }
 }
