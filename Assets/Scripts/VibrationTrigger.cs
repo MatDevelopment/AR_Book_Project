@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AndroidVibrator : MonoBehaviour
+public class VibrationTrigger : MonoBehaviour
 {
     private bool isVibrating = false;
 
