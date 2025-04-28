@@ -5927,12 +5927,12 @@ RectTransform:
   - {fileID: 2122557019}
   - {fileID: 343490703}
   - {fileID: 1790726234}
+  - {fileID: 1285300174}
+  - {fileID: 2106916301}
   - {fileID: 954459949}
   - {fileID: 1925854745}
   - {fileID: 231301202}
   - {fileID: 7590227993919243221}
-  - {fileID: 2106916301}
-  - {fileID: 1285300174}
   - {fileID: 1075459635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
