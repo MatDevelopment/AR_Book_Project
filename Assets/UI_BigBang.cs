@@ -52,20 +52,20 @@ public class UI_BigBang : MonoBehaviour
         }
         else if (inputtime > 0.1f && inputtime <= 2.1f)
         {
-            information = "1 nanosekund - Universet er en ekstremt varm supper af elemæntar partikler såsom Kvarker og Elektroner";
+            information = "1 nanosekund - Universet er en ekstremt varm suppe af elemæntar partikler såsom Kvarker og Elektroner";
         }
 
         else if (inputtime > 2.5f && inputtime <= 4.2f)
         {
-            information = "1 sekund - Atomkerner til brint og helium dannes";
+            information = "1 sekund - Atomkerner til bla. brint dannes";
         }
         else if (inputtime > 5f && inputtime <= 5.6f)
         {
-            information = "377 tusind år - Atomkerner kombineres med elektroner og hydrogen atomer dannes";
+            information = "377 tusind år - Atomkerner kombineres med elektroner og brint atomer dannes";
         }
         else if (inputtime > 6f && inputtime <= 6.6f)
         {
-            information = "300-500 millioner år - Tyngdekraften presser hydrogen atomer sammen til de første kæmpe stjerner";
+            information = "300-500 millioner år - Tyngdekraften presser brint atomer sammen til de første kæmpe stjerner";
         }
         else if (inputtime > 6.8f && inputtime <= 7.4f)
         {

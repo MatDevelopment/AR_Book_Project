@@ -18,6 +18,7 @@ public class DataLogger : MonoBehaviour
     public bool userCompletedDiggingScene = false;
 
     public List<Question> AnsweredUserQuestions = new List<Question>();
+    private List<string> AnsweredQuestionSceneNames = new List<string>(); // <-- New list to track scenes for questions
     public Dictionary<string, float> TimeSpentInScenes = new Dictionary<string, float>();
 
     public float timeSpentInCurrentScene = 0;
@@ -28,9 +29,9 @@ public class DataLogger : MonoBehaviour
     public CanvasGroup ThankYouText;
 
     public bool LogSaved = false;
+
     private void Awake()
     {
-        // If there is an instance, and it's not me, delete myself.
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -38,7 +39,7 @@ public class DataLogger : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this object alive between scenes
+            DontDestroyOnLoad(gameObject);
         }
 
         if (SceneManager.GetActiveScene().name == "EndScene")
@@ -62,9 +63,14 @@ public class DataLogger : MonoBehaviour
     public void AddQuestionsToAnsweredQuetions(List<Question> questionsToAdd)
     {
         AnsweredUserQuestions.AddRange(questionsToAdd);
+
+        foreach (var q in questionsToAdd)
+        {
+            AnsweredQuestionSceneNames.Add(currentSceneName); // Track scene per question
+        }
     }
 
-    public void AddTimeSpentInScene() // Should be called whenever a scene is unloaded
+    public void AddTimeSpentInScene()
     {
         if (TimeSpentInScenes.ContainsKey(currentSceneName))
         {
@@ -75,21 +81,15 @@ public class DataLogger : MonoBehaviour
             TimeSpentInScenes.Add(currentSceneName, timeSpentInCurrentScene);
         }
 
-        // Reset the timer for the next scene
         startTimeForCurrentScene = Time.time;
         timeSpentInCurrentScene = 0;
-        // Update the current scene name
         currentSceneName = SceneManager.GetActiveScene().name;
     }
 
-    // Called when a new scene is loaded
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Record time spent in previous scene
         AddTimeSpentInScene();
-        // Update current scene name
         currentSceneName = scene.name;
-        // Reset timer for new scene
         startTimeForCurrentScene = Time.time;
 
         if (scene.name == "EndScene")
@@ -97,28 +97,16 @@ public class DataLogger : MonoBehaviour
             ShowEndButton();
         }
     }
-    
 
     private void OnEnable()
     {
-        // Subscribe to the scene loaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        // Unsubscribe from the scene loaded event
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
-    //private void OnApplicationPause(bool pauseStatus)
-    //{
-    //    if (pauseStatus) // If the application is being paused
-    //    {
-    //        AddTimeSpentInScene(); // Add the scene time
-    //        SaveLog("Saved on application pause!");
-    //    }
-    //}
 
     [System.Serializable]
     public class SceneTimeInfo
@@ -129,13 +117,25 @@ public class DataLogger : MonoBehaviour
 
     private void SaveLog(string addedTextAtStart)
     {
-        // First add the current scene's time
         float currentTime = timeSpentInCurrentScene;
         AddTimeSpentInScene();
 
-        // Create a formatted text content
         StringBuilder textContent = new StringBuilder();
         textContent.AppendLine(addedTextAtStart);
+        textContent.AppendLine("====================");
+        textContent.AppendLine("DEVICE & PERFORMANCE INFO:");
+        textContent.AppendLine("====================");
+        textContent.AppendLine($"Device Model: {SystemInfo.deviceModel}");
+        textContent.AppendLine($"Device Name: {SystemInfo.deviceName}");
+        textContent.AppendLine($"Operating System: {SystemInfo.operatingSystem}");
+        textContent.AppendLine($"Processor Type: {SystemInfo.processorType}");
+        textContent.AppendLine($"Graphics Device Name: {SystemInfo.graphicsDeviceName}");
+        textContent.AppendLine($"System Memory Size: {SystemInfo.systemMemorySize} MB");
+        textContent.AppendLine($"Graphics Memory Size: {SystemInfo.graphicsMemorySize} MB");
+        textContent.AppendLine($"Target Frame Rate: {Application.targetFrameRate}");
+        textContent.AppendLine($"Approximate FPS: {(1.0f / Time.deltaTime):F2}");
+        textContent.AppendLine();
+
         textContent.AppendLine("====================");
         textContent.AppendLine("SCENES TIME INFORMATION:");
         textContent.AppendLine("====================");
@@ -153,19 +153,27 @@ public class DataLogger : MonoBehaviour
         textContent.AppendLine("USER ANSWERED QUESTIONS:");
         textContent.AppendLine("====================");
 
-        foreach (var question in AnsweredUserQuestions)
+        string lastSceneName = "";
+        for (int i = 0; i < AnsweredUserQuestions.Count; i++)
         {
+            string sceneNameForQuestion = (i < AnsweredQuestionSceneNames.Count) ? AnsweredQuestionSceneNames[i] : "Unknown Scene";
+
+            if (sceneNameForQuestion != lastSceneName)
+            {
+                textContent.AppendLine($"\n--- Scene: {sceneNameForQuestion} ---\n");
+                lastSceneName = sceneNameForQuestion;
+            }
+
+            var question = AnsweredUserQuestions[i];
             textContent.AppendLine($"Question: {question.questionText}");
             textContent.AppendLine($"Answer: {question.possibleAnswers[question.userAnswer]}");
             textContent.AppendLine($"Correct: {question.possibleAnswers[question.correctAnswerIndex]}");
             textContent.AppendLine("----------");
         }
 
-        // Create a file path with new date format - dd/MM/yyyy/HH:mm
         string dateTimeFormat = System.DateTime.Now.ToString("dd_MM_yyyy_HH_mm");
         string fileName = "[AR BOOK] Log_ " + dateTimeFormat + ".txt";
 
-        // Replace any invalid filename characters with underscores
         foreach (char c in Path.GetInvalidFileNameChars())
         {
             fileName = fileName.Replace(c, '_');
@@ -175,10 +183,8 @@ public class DataLogger : MonoBehaviour
 
         try
         {
-            // Write the text content to a file
             System.IO.File.WriteAllText(filePath, textContent.ToString());
 
-            // For Android: Make sure the file is visible to other apps like file managers
 #if UNITY_ANDROID
             try
             {
@@ -186,7 +192,6 @@ public class DataLogger : MonoBehaviour
                 using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
                 using (AndroidJavaObject context = currentActivity.Call<AndroidJavaObject>("getApplicationContext"))
                 {
-                    // Notify the system that a new file was created
                     AndroidJavaClass mediaScannerClass = new AndroidJavaClass("android.media.MediaScannerConnection");
                     mediaScannerClass.CallStatic("scanFile", context, new string[] { filePath }, null, null);
                 }
@@ -195,7 +200,6 @@ public class DataLogger : MonoBehaviour
             catch (System.Exception e)
             {
                 Debug.LogWarning("Could not register file with Android media scanner: " + e.Message);
-                // Non-critical error, so we continue
             }
 #endif 
         }
@@ -204,63 +208,16 @@ public class DataLogger : MonoBehaviour
             Debug.LogError("Failed to save log file: " + e.Message);
         }
 
-        // Restore the current scene's time that was reset in AddTimeSpentInScene
         timeSpentInCurrentScene = currentTime;
     }
 
-    //private void OnApplicationQuit()
-    //{
-    //    QuitGame();
-    //}
-
     public void SaveLogAtEnd()
     {
-        ExtensionMethods.FadeCanvasGroup(EndButton.GetComponent<CanvasGroup>(), false, 0.5f); // Fade out the thank you text
+        ExtensionMethods.FadeCanvasGroup(EndButton.GetComponent<CanvasGroup>(), false, 0.5f);
         ThankYouText.gameObject.SetActive(true);
-        ExtensionMethods.FadeCanvasGroup(ThankYouText, true, 0.6f); // Fade out the thank you text
+        ExtensionMethods.FadeCanvasGroup(ThankYouText, true, 0.6f);
 
-        AddTimeSpentInScene(); // Add the final scene time
+        AddTimeSpentInScene();
         SaveLog("Saved on application Quit!");
     }
 }
-//#if UNITY_ANDROID
-//        // First minimize the app
-//        MoveAndroidApplicationToBack();
-
-//        // Then use more forceful method to quit on Android
-//        try
-//        {
-//            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-//            activity.Call("finishAndRemoveTask");
-
-//            // As a fallback, also try to kill the process directly
-//            AndroidJavaObject process = new AndroidJavaClass("android.os.Process");
-//            int pid = process.CallStatic<int>("myPid");
-//            process.CallStatic("killProcess", pid);
-//        }
-//        catch (System.Exception e)
-//        {
-//            Debug.LogError("Failed to exit Android app: " + e.Message);
-//            // Fallback to standard quit
-//            Application.Quit(0);
-//        }
-//#else
-//        Application.Quit();
-//#endif
-//    }
-
-//    public static void MoveAndroidApplicationToBack()
-//    {
-//#if UNITY_ANDROID
-//        try
-//        {
-//            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-//            activity.Call<bool>("moveTaskToBack", true);
-//            Debug.Log("Application minimized successfully");
-//        }
-//        catch (System.Exception e)
-//        {
-//            Debug.LogError("Failed to minimize application: " + e.Message);
-//        }
-//#endif
-//    }
