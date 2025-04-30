@@ -15,6 +15,7 @@ public class InfoUI : MonoBehaviour
     [SerializeField] private GameObject dig1_button;
     [SerializeField] private GameObject dig2_button;
     [SerializeField] private GameObject resetEarthAndDrill_button;
+    [SerializeField] private DespawnEndText _despawnEndText;
     
     // Layer Transition Text UI
     [SerializeField] private GameObject LayerTransitionTextUI;
@@ -168,7 +169,8 @@ public class InfoUI : MonoBehaviour
         
         // Depth UI
         float depthUIFloat = ((6371f / 100f) * _drillMovement1.progress);
-        depthUItext.text = Mathf.Round((depthUIFloat * 10f) * 0.1f) + " kilometer";
+        //depthUItext.text = Mathf.Round((depthUIFloat * 10f) * 0.1f) + " kilometer";
+        depthUItext.text = Mathf.Round(depthUIFloat * 0.985f) + " kilometer";
     }
 
     private void OnTriggerEnter(Collider other)
@@ -237,7 +239,7 @@ public class InfoUI : MonoBehaviour
                 // Gold (Au) - Golden square-like with Au in the middle
                 break;
             case "InnerCoreTarget":
-                StartCoroutine(ShowUIForDuration_NoTextEdit(EndingTextGameobject, 10f));
+                _despawnEndText.Method_ShowUIForDuration_NoTextEdit_(EndingTextGameobject, 10f);
                 _audioManager.Play("ExplosionSound");
                 EnableIconsAndTexts(false, elementIcons, elementTexts);
                 dig1_button.SetActive(false);

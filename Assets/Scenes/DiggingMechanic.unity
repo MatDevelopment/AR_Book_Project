@@ -1191,60 +1191,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 202684509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6621c70c365d3724e92b8a5fd86c4ba1, type: 3}
+  m_Script: {fileID: 11500000, guid: 168b167dca33f7243a5d7577440b9aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _drillMovement1: {fileID: 2737326523155412186}
-  drillGameobject: {fileID: 8861915550028034999}
-  dig1_button: {fileID: 109317727}
-  dig2_button: {fileID: 33804274}
-  resetEarthAndDrill_button: {fileID: 1125689753}
-  LayerTransitionTextUI: {fileID: 2129836293}
-  PeriodicElementsUI: {fileID: 1620800026}
-  temperatureUItext: {fileID: 689842579}
-  depthUItext: {fileID: 1207686884}
-  crust_elementIcons:
-  - {fileID: 64040505}
-  - {fileID: 826314283}
-  - {fileID: 2117606706}
-  crust_elementText:
-  - {fileID: 964883276}
-  - {fileID: 1550486259}
-  - {fileID: 545355346}
-  upperMantle_elementIcons:
-  - {fileID: 1645419253}
-  - {fileID: 842438302}
-  - {fileID: 254284773}
-  upperMantle_elementText:
-  - {fileID: 1572280141}
-  - {fileID: 812228574}
-  - {fileID: 1362591753}
-  mantle_elementIcons:
-  - {fileID: 1688470673}
-  - {fileID: 1558932988}
-  - {fileID: 584516654}
-  mantle_elementText:
-  - {fileID: 480126371}
-  - {fileID: 246276683}
-  - {fileID: 1779963658}
-  outerCore_elementIcons:
-  - {fileID: 1582808464}
-  - {fileID: 1994892065}
-  - {fileID: 1580167946}
-  outerCore_elementText:
-  - {fileID: 1864345546}
-  - {fileID: 601415995}
-  - {fileID: 399971975}
-  innerCore_elementIcons:
-  - {fileID: 2040020453}
-  - {fileID: 22052291}
-  - {fileID: 215604154}
-  innerCore_elementText:
-  - {fileID: 1182875987}
-  - {fileID: 1288642200}
-  - {fileID: 1492181641}
-  _audioManager: {fileID: 596033374}
-  EndingTextGameobject: {fileID: 1290837623}
 --- !u!1 &215604154
 GameObject:
   m_ObjectHideFlags: 0
@@ -10255,6 +10204,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3225751935283559017, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 5358046235513004951, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -10452,6 +10406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2095170908385724787, guid: 64bbccbc7d14b97438833b88efff26c5, type: 3}
+    - {fileID: 457647936267620685, guid: 64bbccbc7d14b97438833b88efff26c5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -10581,9 +10536,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _drillMovement1: {fileID: 2737326523155412186}
   drillGameobject: {fileID: 8861915550028034999}
-  dig1_button: {fileID: 0}
-  dig2_button: {fileID: 0}
-  resetEarthAndDrill_button: {fileID: 0}
+  dig1_button: {fileID: 109317727}
+  dig2_button: {fileID: 33804274}
+  resetEarthAndDrill_button: {fileID: 1125689753}
+  _despawnEndText: {fileID: 202684514}
   LayerTransitionTextUI: {fileID: 2129836293}
   PeriodicElementsUI: {fileID: 1620800026}
   temperatureUItext: {fileID: 689842579}
