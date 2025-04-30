@@ -24,11 +24,12 @@ public class QuestionManager : MonoBehaviour
     [SerializeField]
     private bool panelHidden = true;
 
-
     // Animation parameters
     private float buttonScaleDuration = 0.3f;
     private float buttonPingScale = 1.2f;
     private float panelAnimationDuration = 0.7f; // Reduced from 1.0f to make it faster
+
+    private bool SessionInSession = false;
 
     public SoundEffectManager SoundEffectManager;
     public bool hasStartedAfterQuizSession = false;
@@ -87,6 +88,8 @@ public class QuestionManager : MonoBehaviour
 
         if (AllQuestionsAnswered)
         {
+            if (SessionInSession) return;
+            SessionInSession = true;
             HideQuestionsPanel();
             panelHidden = true;
             ShowAfterQuizSection();
@@ -142,7 +145,9 @@ public class QuestionManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         EndSessionFinished = true;
+        SessionInSession = false;
         ShowNextExerciseButton();
+
     }
 
     public void ShowNextExerciseButton()

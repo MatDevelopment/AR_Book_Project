@@ -356,7 +356,7 @@ public class ControlTimeWithDistance : MonoBehaviour
     {
         if (WalkingInstructionsCanvasGroup != null)
         {
-            StartCoroutine(ExtensionMethods.FadeCanvasGroup(WalkingInstructionsCanvasGroup, true, 0.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(WalkingInstructionsCanvasGroup, true, 1.6f));
             Invoke(nameof(HideWalkInstructions), 6.5f);
         }
     }
