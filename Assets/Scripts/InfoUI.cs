@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 public class InfoUI : MonoBehaviour
 {
     [SerializeField] private DrillMovement1 _drillMovement1;
+    [SerializeField] private GameObject drillGameobject;
     
     // Layer Transition Text UI
     [SerializeField] private GameObject LayerTransitionTextUI;
@@ -214,7 +215,7 @@ public class InfoUI : MonoBehaviour
                 EnableIconsAndTexts(true, outerCore_elementIcons, outerCore_elementText);
                 StartCoroutine(ShowUIForDuration(UI_Gameobject: LayerTransitionTextUI, Duration: 6f, UItext: "Den Ydre Kerne - ca. 2900-5150 km"));
                 _drillMovement1.layerTemperature = 3700;
-                _drillMovement1.riseInTemperaturePerClick = 7;
+                _drillMovement1.riseInTemperaturePerClick = 20;
                 
                 // Iron (Fe) - Glowing red molten metal
                 // Nickel (Ni) - Shiny metallic silver
@@ -235,7 +236,8 @@ public class InfoUI : MonoBehaviour
             case "InnerCoreTarget":
                 StartCoroutine(ShowUIForDuration_NoTextEdit(EndingTextGameobject, 10f));
                 _audioManager.Play("ExplosionSound");
-                Destroy(gameObject);    // <------------------------- END GAME HEEEEEEEEEEEEERE <----------------------------- //
+                EnableIconsAndTexts(false, elementIcons, elementTexts);
+                Destroy(drillGameobject);    // <------------------------- END GAME HEEEEEEEEEEEEERE <----------------------------- //
                 break;
         }
     }
@@ -285,7 +287,6 @@ public class InfoUI : MonoBehaviour
     
     IEnumerator ShowUIForDuration_NoTextEdit(GameObject UI_Gameobject, float Duration)
     {
-        
         UI_Gameobject.SetActive(true);
         yield return new WaitForSeconds(Duration);
         UI_Gameobject.SetActive(false);

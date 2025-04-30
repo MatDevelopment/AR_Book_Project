@@ -1105,6 +1105,7 @@ GameObject:
   - component: {fileID: 202684512}
   - component: {fileID: 202684511}
   - component: {fileID: 202684510}
+  - component: {fileID: 202684514}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1204,6 +1205,66 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &202684514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202684509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6621c70c365d3724e92b8a5fd86c4ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _drillMovement1: {fileID: 2737326523155412186}
+  drillGameobject: {fileID: 8861915550028034999}
+  LayerTransitionTextUI: {fileID: 2129836293}
+  PeriodicElementsUI: {fileID: 1620800026}
+  temperatureUItext: {fileID: 689842579}
+  depthUItext: {fileID: 1207686884}
+  crust_elementIcons:
+  - {fileID: 64040505}
+  - {fileID: 826314283}
+  - {fileID: 2117606706}
+  crust_elementText:
+  - {fileID: 964883276}
+  - {fileID: 1550486259}
+  - {fileID: 545355346}
+  upperMantle_elementIcons:
+  - {fileID: 1645419253}
+  - {fileID: 842438302}
+  - {fileID: 254284773}
+  upperMantle_elementText:
+  - {fileID: 1572280141}
+  - {fileID: 812228574}
+  - {fileID: 1362591753}
+  mantle_elementIcons:
+  - {fileID: 1688470673}
+  - {fileID: 1558932988}
+  - {fileID: 584516654}
+  mantle_elementText:
+  - {fileID: 480126371}
+  - {fileID: 246276683}
+  - {fileID: 1779963658}
+  outerCore_elementIcons:
+  - {fileID: 1582808464}
+  - {fileID: 1994892065}
+  - {fileID: 1580167946}
+  outerCore_elementText:
+  - {fileID: 1864345546}
+  - {fileID: 601415995}
+  - {fileID: 399971975}
+  innerCore_elementIcons:
+  - {fileID: 2040020453}
+  - {fileID: 22052291}
+  - {fileID: 215604154}
+  innerCore_elementText:
+  - {fileID: 1182875987}
+  - {fileID: 1288642200}
+  - {fileID: 1492181641}
+  _audioManager: {fileID: 596033374}
+  EndingTextGameobject: {fileID: 1290837623}
 --- !u!1 &215604154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,7 +2555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Nikkel som blandes med jern og giver stabilitet.
+  m_text: Nikkel som blandes med jern og stabiliserer Jordens kerne.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4909,7 +4970,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Oxygen (krystaliseret) findes i luft og mineraler, binder sig med silicium.
+  m_text: Oxygen findes i luft og mineraler, og her i skorpen er der meget Oxygen!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5495,9 +5556,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1894068479}
-        m_TargetAssemblyTypeName: SpawnDrill, Assembly-CSharp
-        m_MethodName: ResetDrillPosition
+      - m_Target: {fileID: 2737326523155412186}
+        m_TargetAssemblyTypeName: DrillMovement1, Assembly-CSharp
+        m_MethodName: Method_StartPositionResetForDrillAndEarth
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6213,7 +6274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.6117647, g: 0.6117647, b: 0.6117647, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6718,8 +6779,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Supervarmt og flydende jern, men stadig virkelig t\xE6t og massivt p\xE5
-    grund af enormt tryk!"
+  m_text: "Supervarmt jern men IKKE flydende, fordi trykket er s\xE5 h\xF8jt at metallet
+    ikke kan smelte!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8184,7 +8245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.61006284, g: 0.61006284, b: 0.61006284, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9805,6 +9866,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2095170908385724787, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2095170908385724787, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
       propertyPath: depthUItext
       value: 
       objectReference: {fileID: 1207686884}
@@ -10091,7 +10157,7 @@ PrefabInstance:
     - target: {fileID: 5877503784149886675, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_text
-      value: Gravemaskine start
+      value: Der er din gravemaskine
       objectReference: {fileID: 0}
     - target: {fileID: 5877503784149886675, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
@@ -10160,6 +10226,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8490224267841467490, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
+      propertyPath: _spawnDrill
+      value: 
+      objectReference: {fileID: 1894068479}
+    - target: {fileID: 8490224267841467490, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 8861915550028035000}
@@ -10193,6 +10264,16 @@ PrefabInstance:
       propertyPath: drillStepPercent
       value: 0.31
       objectReference: {fileID: 0}
+    - target: {fileID: 8490224267841467490, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: ResetPosition_UIElement
+      value: 
+      objectReference: {fileID: 1125689753}
+    - target: {fileID: 8542582097811691408, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 8542582097811691408, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -10201,9 +10282,10 @@ PrefabInstance:
     - target: {fileID: 8542582097811691408, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.263
+      value: -0.28
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2095170908385724787, guid: 64bbccbc7d14b97438833b88efff26c5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

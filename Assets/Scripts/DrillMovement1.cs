@@ -24,9 +24,14 @@ public class DrillMovement1 : MonoBehaviour
 
     private float lastPressTime = Mathf.NegativeInfinity;
     private bool isFadingOut = false;
-    private bool isIdling = false; // ⭐ NEW ⭐ Track if idling
+    private bool isIdling = false;
 
     [SerializeField] private AndroidVibrator _androidVibrator;
+    
+    // Reset position for the drill and the sliced Earth
+    [SerializeField] private SpawnDrill _spawnDrill;
+    [SerializeField] private GameObject ResetPosition_UIElement;
+    private bool _isResettingPosition = false;
 
     private void Start()
     {
@@ -51,19 +56,22 @@ public class DrillMovement1 : MonoBehaviour
         Vector3 currentPosition = transform.position;
         float newY = Mathf.Lerp(currentPosition.y, targetY, Time.deltaTime * moveSpeed);
 
-        // Optional: Add drill vibration
-        float shakeStrength = 0.001f;
-        if (Mathf.Abs(targetY - currentPosition.y) > 0.001f)
+        if (_isResettingPosition == false)
         {
-            float shakeX = Random.Range(-shakeStrength, shakeStrength);
-            float shakeZ = Random.Range(-shakeStrength, shakeStrength);
-            transform.position = new Vector3(startPosition.x + shakeX, newY, startPosition.z + shakeZ);
+            // Optional: Add drill vibration
+            float shakeStrength = 0.001f;
+            if (Mathf.Abs(targetY - currentPosition.y) > 0.001f)
+            {
+                float shakeX = Random.Range(-shakeStrength, shakeStrength);
+                float shakeZ = Random.Range(-shakeStrength, shakeStrength);
+                transform.position = new Vector3(startPosition.x + shakeX, newY, startPosition.z + shakeZ);
+            }
+            else
+            {
+                transform.position = new Vector3(startPosition.x, newY, startPosition.z);
+            }
         }
-        else
-        {
-            transform.position = new Vector3(startPosition.x, newY, startPosition.z);
-        }
-
+        
         // Start fade if no press recently
         if (audioSource != null && audioSource.isPlaying && !isFadingOut && !isIdling && (Time.time - lastPressTime > stopDelay))
         {
@@ -71,6 +79,7 @@ public class DrillMovement1 : MonoBehaviour
         }
     }
 
+    
     public void DrillStep()
     {
         if (target == null || progress >= 100f) return;
@@ -150,4 +159,23 @@ public class DrillMovement1 : MonoBehaviour
         _androidVibrator.Vibrate(50, 200);
         Handheld.Vibrate();
     }
+
+    private IEnumerator StartPositionResetForDrillAndEarth()
+    {
+        _isResettingPosition = true;
+        ResetPosition_UIElement.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        
+        _spawnDrill.ResetDrillPosition();
+        
+        yield return new WaitForSeconds(2);
+        _isResettingPosition = false;
+        ResetPosition_UIElement.SetActive(true);
+    }
+
+    public void Method_StartPositionResetForDrillAndEarth()
+    {
+        StartCoroutine(StartPositionResetForDrillAndEarth());
+    }
+    
 }
