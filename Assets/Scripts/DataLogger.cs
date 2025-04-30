@@ -36,8 +36,8 @@ public class DataLogger : MonoBehaviour
     private float initialBatteryLevel;
     private BatteryStatus initialBatteryStatus;
 
-    public Button EndButton;
-    public CanvasGroup ThankYouText;
+    //public Button EndButton;
+    //public CanvasGroup ThankYouText;
     public bool LogSaved = false;
 
     private void Awake()
@@ -88,8 +88,8 @@ public class DataLogger : MonoBehaviour
         startTimeForCurrentScene = Time.time;
         frameCountCurrentScene = 0;
 
-        if (scene.name == "EndScene")
-            ShowEndButton();
+        //if (scene.name == "EndScene")
+        //    ShowEndButton();
     }
 
     private void RecordSceneStats()
@@ -130,13 +130,13 @@ public class DataLogger : MonoBehaviour
         LogSaved = true;
 
         // show end UI
-        ShowEndButton();
+        //ShowEndButton();
     }
 
-    private void ShowEndButton()
-    {
-        EndButton.gameObject.SetActive(true);
-    }
+    //private void ShowEndButton()
+    //{
+    //    EndButton.gameObject.SetActive(true);
+    //}
 
     private void SaveLogToFile()
     {
@@ -244,19 +244,19 @@ public class DataLogger : MonoBehaviour
             Debug.LogError("Failed to save log: " + e.Message);
         }
     }
-    public void AddTimeSpentInScene()
-    {
-        if (TimeSpentInScenes.ContainsKey(currentSceneName))
-        {
-            TimeSpentInScenes[currentSceneName] += timeSpentInCurrentScene;
-        }
-        else
-        {
-            TimeSpentInScenes.Add(currentSceneName, timeSpentInCurrentScene);
-        }
+    //public void AddTimeSpentInScene()
+    //{
+    //    if (TimeSpentInScenes.ContainsKey(currentSceneName))
+    //    {
+    //        TimeSpentInScenes[currentSceneName] += timeSpentInCurrentScene;
+    //    }
+    //    else
+    //    {
+    //        TimeSpentInScenes.Add(currentSceneName, timeSpentInCurrentScene);
+    //    }
 
-        startTimeForCurrentScene = Time.time;
-        timeSpentInCurrentScene = 0;
-        currentSceneName = SceneManager.GetActiveScene().name;
-    }
+    //    startTimeForCurrentScene = Time.time;
+    //    timeSpentInCurrentScene = 0;
+    //    currentSceneName = SceneManager.GetActiveScene().name;
+    //}
 }

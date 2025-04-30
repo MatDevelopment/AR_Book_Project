@@ -152,9 +152,10 @@ public class QuestionManager : MonoBehaviour
         {
             SetCompletedSceneBoolTrue();
             DataLogger.Instance.AddQuestionsToAnsweredQuetions(questions);
-            DataLogger.Instance.AddTimeSpentInScene();
+            //DataLogger.Instance.AddTimeSpentInScene();
+         
 
-            if(DataLogger.Instance.userCompletedBigBangScene && DataLogger.Instance.userCompletedRoverScene && DataLogger.Instance.userCompletedDiggingScene)
+            if (DataLogger.Instance.userCompletedBigBangScene && DataLogger.Instance.userCompletedRoverScene && DataLogger.Instance.userCompletedDiggingScene)
             {
                 DataLogger.Instance.SaveLogAtEnd();
          
