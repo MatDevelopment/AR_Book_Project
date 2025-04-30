@@ -17,6 +17,8 @@ public class ControlTimeWithDistance : MonoBehaviour
     public CanvasGroup PressMeTextCG;
     public GameObject solarSystemObject; // Assign the Solar System GameObject (start point for the line)
     public GameObject solarSystemParticles;
+    public GameObject glowBlue, glowGreen;
+
     [SerializeField] private Transform solarSystemSpawnPointTransform;
 
     // --- Configuration ---
@@ -63,6 +65,9 @@ public class ControlTimeWithDistance : MonoBehaviour
 
     void Start()
     {
+        glowBlue.SetActive(false);
+        glowGreen.SetActive(false);
+
         // Initial UI setup
         if (WalkingInstructionsCanvasGroup != null) WalkingInstructionsCanvasGroup.alpha = 0;
         if (TutorialCanvasGroup != null) TutorialCanvasGroup.alpha = 0;
@@ -319,6 +324,21 @@ public class ControlTimeWithDistance : MonoBehaviour
             targetScale = solarSystemMinimumScale; // Or maybe maximum? Adjust as needed for times > 10.1
             targetParticleScale = solarSystemParticlesMinimumScale; // Adjust as needed
         }
+
+        if(currentTime > 7.8f)
+        {
+            if(questionManager.AllQuestionsAnswered)
+            {
+                glowBlue.SetActive(false);
+                glowGreen.SetActive(true);
+            }
+            else
+            {
+                glowBlue.SetActive(true);
+                glowGreen.SetActive(false);
+            }
+        }
+            
 
         // Apply the scale
         solarSystemObject.transform.localScale = targetScale;

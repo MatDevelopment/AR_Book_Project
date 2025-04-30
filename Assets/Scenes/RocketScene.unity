@@ -16865,6 +16865,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2081079746283442615, guid: d1454f0ad6488ee4b86db981a588e5a3,
+        type: 3}
+      propertyPath: _degreesPerSecondToRotateSelf
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 2833317694753346264, guid: d1454f0ad6488ee4b86db981a588e5a3,
         type: 3}
       propertyPath: m_IsTrigger
@@ -16893,7 +16898,7 @@ PrefabInstance:
     - target: {fileID: 3178483947477134050, guid: d1454f0ad6488ee4b86db981a588e5a3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3178483947477134050, guid: d1454f0ad6488ee4b86db981a588e5a3,
         type: 3}

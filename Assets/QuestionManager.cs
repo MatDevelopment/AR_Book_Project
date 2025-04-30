@@ -73,6 +73,17 @@ public class QuestionManager : MonoBehaviour
     }
     public void CheckForAllQuestionsAnswered()
     {
+
+        if (AllQuestionsAnswered)
+        {
+            HideQuestionsPanel();
+            panelHidden = true;
+            ShowAfterQuizSection();
+            StartAfterquizSession();
+        }
+    }
+    private void FixedUpdate()
+    {
         foreach (Question question in questions)
         {
             if (question.userAnswer == -1)
@@ -85,14 +96,6 @@ public class QuestionManager : MonoBehaviour
             {
                 AllQuestionsAnswered = true;
             }
-        }
-
-        if (AllQuestionsAnswered)
-        {
-            HideQuestionsPanel();
-            panelHidden = true;
-            ShowAfterQuizSection();
-            StartAfterquizSession();
         }
     }
 

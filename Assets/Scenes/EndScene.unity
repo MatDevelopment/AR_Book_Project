@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "v\xE6r venlig at trykke afslut og derefter l\xE6g telefonen p\xE5 bordet
+  m_text: "Tak fordi du pr\xF8vede vores app! \n\nNu kan du l\xE6gge telefonen tilbage
     :-)\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 239584feb8b631b4aaaf0d6af980f15c, type: 2}
@@ -5719,7 +5719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1489079741
 RectTransform:
   m_ObjectHideFlags: 0
