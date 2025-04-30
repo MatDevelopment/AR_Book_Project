@@ -192,7 +192,7 @@ public class InfoUI : MonoBehaviour
                 _audioManager.Play("NewLayerSound");
                 EnableIconsAndTexts(false, elementIcons, elementTexts);
                 EnableIconsAndTexts(true, upperMantle_elementIcons, upperMantle_elementText);
-                StartCoroutine(ShowUIForDuration(UI_Gameobject: LayerTransitionTextUI, Duration: 6f, UItext: "Den Øvre Mantel - ca. 35-600 km"));
+                StartCoroutine(ShowUIForDuration(UI_Gameobject: LayerTransitionTextUI, Duration: 6f, UItext: "Den Ydre Kappe - ca. 35-600 km"));
                 _drillMovement1.layerTemperature = 700;
                 _drillMovement1.riseInTemperaturePerClick = 10;
                 
@@ -204,7 +204,7 @@ public class InfoUI : MonoBehaviour
                 _audioManager.Play("NewLayerSound");
                 EnableIconsAndTexts(false, elementIcons, elementTexts);
                 EnableIconsAndTexts(true, mantle_elementIcons, mantle_elementText);
-                StartCoroutine(ShowUIForDuration(UI_Gameobject: LayerTransitionTextUI, Duration: 6f, UItext: "Mantlen - ca. 660-2900 km"));
+                StartCoroutine(ShowUIForDuration(UI_Gameobject: LayerTransitionTextUI, Duration: 6f, UItext: "Den Indre Kappe - ca. 660-2900 km"));
                 _drillMovement1.layerTemperature = 2800;
                 _drillMovement1.riseInTemperaturePerClick = 8;
                 
