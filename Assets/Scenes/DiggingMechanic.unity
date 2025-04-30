@@ -4094,6 +4094,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.000015258789
       objectReference: {fileID: 0}
+    - target: {fileID: 5284524957181783394, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
+        type: 3}
+      propertyPath: m_fontColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284524957181783394, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3959422975
+      objectReference: {fileID: 0}
     - target: {fileID: 5455739704064570750, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
       propertyPath: m_Alpha
@@ -4329,6 +4339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: prefab_but_GoToNextExercise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502303630629599131, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7590227994475963045, guid: ea8f7b3d7e41fb84b8bee82f7c738977,
         type: 3}
@@ -8893,6 +8908,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 686367858}
+        m_TargetAssemblyTypeName: QuestionManager, Assembly-CSharp
+        m_MethodName: EnableQuestionsPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
 --- !u!114 &1894068477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9292,6 +9319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2105727280234997990, guid: 6692f5041823374488c6c206a0a1b301,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 457.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105727280234997990, guid: 6692f5041823374488c6c206a0a1b301,
+        type: 3}
       propertyPath: m_SizeDelta.y
       value: 226.54
       objectReference: {fileID: 0}
@@ -9399,6 +9431,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681329567489649317, guid: 6692f5041823374488c6c206a0a1b301,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 385.9
       objectReference: {fileID: 0}
     - target: {fileID: 8531149616025170542, guid: 6692f5041823374488c6c206a0a1b301,
         type: 3}

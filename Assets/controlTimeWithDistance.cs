@@ -62,6 +62,8 @@ public class ControlTimeWithDistance : MonoBehaviour
     [SerializeField] float distanceToCamera;
     [SerializeField] float timeByDistance;
 
+    private float waitTimequixkFixForTutorialText = 5;
+    private float timeThatTargetWasFound = 0;
 
     void Start()
     {
@@ -143,6 +145,8 @@ public class ControlTimeWithDistance : MonoBehaviour
         Invoke(nameof(SetCanUpdateMarkers), 0.2f);
 
         targetFound = true; // Set flag
+        timeThatTargetWasFound = Time.time; 
+
 
         // Show initial instructions
         ShowWalkInstructions();
@@ -198,7 +202,7 @@ public class ControlTimeWithDistance : MonoBehaviour
 
 
         // --- Tutorial Trigger ---
-        if (timeByDistance > 5 && !hasShownTutorialText)
+        if (timeByDistance > 5 && Time.time > timeThatTargetWasFound + waitTimequixkFixForTutorialText && !hasShownTutorialText)
         {
             Invoke(nameof(ShowTutorialInformation), 1.8f);
             hasShownTutorialText = true;

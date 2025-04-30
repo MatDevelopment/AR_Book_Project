@@ -129,6 +129,7 @@ public class RoverControl : MonoBehaviour
         spawnButton.SetActive(true);
         scanEnvPanel.SetActive(false);
 
+
         tutorialIntroText.SetActive(true);
     }
 

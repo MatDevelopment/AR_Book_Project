@@ -44,7 +44,7 @@ public class RoverEventSpawner : MonoBehaviour
                 float randomNumber = Random.Range(0f, 1f);
                 if (randomNumber <= spawnRate)
                 {
-                    GameObject placedObject = Instantiate(placedObjectPrefab, plane.transform.position, Quaternion.identity);
+                    GameObject placedObject = Instantiate(placedObjectPrefab, plane.transform.position + Vector3.up * 0.02f, Quaternion.identity);
                     roverControl.UpdateListOfRoverEvents();
                     Debug.Log("Object Spawned on Add");
                 }
@@ -54,6 +54,7 @@ public class RoverEventSpawner : MonoBehaviour
                 if (planesAdded >= 3 && !roverActivated)
                 {
                     roverControl.ReadyToSpawnRover();
+                    FindAnyObjectByType<QuestionManager>().EnableQuestionsPanel();
                     roverActivated = true;
                 }
             }

@@ -17247,7 +17247,7 @@ MonoBehaviour:
   roverControl: {fileID: 1051415058}
   placedObjectPrefab: {fileID: 385228270670490973, guid: 150c6951ad0616f4780b741d8ea7467b,
     type: 3}
-  spawnRate: 0.85
+  spawnRate: 0.9
 --- !u!1 &1434601904
 GameObject:
   m_ObjectHideFlags: 0
@@ -19181,6 +19181,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2249202409213826398, guid: 7afe7c47c6504aa46a3f9c6875d32580,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2485581572035571191, guid: 7afe7c47c6504aa46a3f9c6875d32580,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -19396,6 +19401,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8382460776752809516, guid: 7afe7c47c6504aa46a3f9c6875d32580,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8942487330314150932, guid: 7afe7c47c6504aa46a3f9c6875d32580,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -19414,6 +19424,11 @@ PrefabInstance:
     - target: {fileID: 8942487330314150932, guid: 7afe7c47c6504aa46a3f9c6875d32580,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9078989256520127969, guid: 7afe7c47c6504aa46a3f9c6875d32580,
+        type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9142592736952629672, guid: 7afe7c47c6504aa46a3f9c6875d32580,
@@ -22932,6 +22947,11 @@ PrefabInstance:
       propertyPath: afterQuizCorrectAnswerText
       value: 
       objectReference: {fileID: 513451938}
+    - target: {fileID: 6377382632798987253, guid: a522213cdcb3d3845b3277ed153e4707,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6533174010440738044, guid: a522213cdcb3d3845b3277ed153e4707,
         type: 3}
       propertyPath: m_text

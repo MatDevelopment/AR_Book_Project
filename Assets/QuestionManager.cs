@@ -34,7 +34,8 @@ public class QuestionManager : MonoBehaviour
     public bool hasStartedAfterQuizSession = false;
     void Start()
     {
-        SoundEffectManager= GetComponentInChildren<SoundEffectManager>();
+        DisableQuestionsPanel();
+        SoundEffectManager = GetComponentInChildren<SoundEffectManager>();
         if (debugfinishButton)
             debugfinishButton.gameObject.SetActive(true);
 
@@ -71,6 +72,16 @@ public class QuestionManager : MonoBehaviour
         IconIncorrect.alpha = 0;
         CG_NextExerciseButton.alpha = 0;
     }
+
+    public void DisableQuestionsPanel()
+    {
+        questionsPanel.gameObject.SetActive(false);
+    }
+    public void EnableQuestionsPanel()
+    {
+        questionsPanel.gameObject.SetActive(true);
+    }
+
     public void CheckForAllQuestionsAnswered()
     {
 
@@ -81,6 +92,13 @@ public class QuestionManager : MonoBehaviour
             ShowAfterQuizSection();
             StartAfterquizSession();
         }
+        else
+        {
+            ShowYouNeedToAnswerAllQuestionsText();
+            SoundEffectManager.PlaySingleSound("MenuHover");
+        }
+
+
     }
     private void FixedUpdate()
     {
@@ -89,7 +107,6 @@ public class QuestionManager : MonoBehaviour
             if (question.userAnswer == -1)
             {
                 AllQuestionsAnswered = false;
-                ShowYouNeedToAnswerAllQuestionsText();
                 break;
             }
             else
@@ -102,7 +119,7 @@ public class QuestionManager : MonoBehaviour
     public void StartAfterquizSession()
     {
         // Fade in the afterQuizContainerGroup
-        StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, true, 1f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, true, 0.6f));
         StartCoroutine(ShowQuestionsSequentially());
         hasStartedAfterQuizSession = true;
     }
@@ -114,16 +131,16 @@ public class QuestionManager : MonoBehaviour
         foreach (Question question in questions)
         {
             yield return StartCoroutine(ShowQuestionInformation(question));
-            yield return new WaitForSeconds(1f); // Delay between clearing 
+            yield return new WaitForSeconds(0.8f); // Delay between clearing 
             SetClearTextColorAllAfterQuizText();
             HideCorrectIncorrectIcons();
-            yield return new WaitForSeconds(1f); // Delay between showing next question
+            yield return new WaitForSeconds(0.5f); // Delay between showing next question
         }
 
         // Fade out the afterQuizContainerGroup when all questions are shown
-        StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, false, 1f));
+        StartCoroutine(ExtensionMethods.FadeCanvasGroup(afterQuizContainerGroup, false, 0.3f));
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         EndSessionFinished = true;
         ShowNextExerciseButton();
     }
@@ -196,16 +213,18 @@ public class QuestionManager : MonoBehaviour
         SetTextToNothing();
 
         // Wait before showing question details
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.8f);
         StartCoroutine(SetTextColorAfterDelay(afterQuizQuestionText, 0));
         afterQuizQuestionText.text = question.questionText;
         Debug.Log("answer: " + question.possibleAnswers[question.userAnswer]);
 
+        // Wait before showing question details
+        yield return new WaitForSeconds(0.8f);
         // Show user answer
         StartCoroutine(SetTextColorAfterDelay(staticUserAnswer, 0));
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(SetTextColorAfterDelay(afterQuizUserAnswerText, 0));
         yield return new WaitForSeconds(0.8f);
+        StartCoroutine(SetTextColorAfterDelay(afterQuizUserAnswerText, 0));
+        yield return new WaitForSeconds(0.5f);
         afterQuizUserAnswerText.text = question.possibleAnswers[question.userAnswer];
 
         yield return new WaitForSeconds(0.8f);
@@ -213,13 +232,13 @@ public class QuestionManager : MonoBehaviour
         // Show correct answer
 
         StartCoroutine(SetTextColorAfterDelay(staticCorrectAnswer, 0));
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
 
         StartCoroutine(SetTextColorAfterDelay(afterQuizCorrectAnswerText, 0));
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
         afterQuizCorrectAnswerText.text = question.possibleAnswers[question.correctAnswerIndex];
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
         // Smoothly show correct/incorrect icons
         if (question.userAnswer == question.correctAnswerIndex)
         {
@@ -236,7 +255,7 @@ public class QuestionManager : MonoBehaviour
 
     private IEnumerator SetTextColorAfterDelay(TextMeshProUGUI textToShow, float delay)
     {
-        SoundEffectManager.PlaySingleSound("Beep");
+        
         yield return new WaitForSeconds(delay);
 
         // Smoothly fade in the text
@@ -251,6 +270,7 @@ public class QuestionManager : MonoBehaviour
             textToShow.color = Color.Lerp(startColor, targetColor, elapsed / duration);
             yield return null;
         }
+        SoundEffectManager.PlaySingleSound("Beep");
         textToShow.color = targetColor;
     }
 
