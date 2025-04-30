@@ -51,6 +51,7 @@ public class ControlTimeWithDistance : MonoBehaviour
     public bool targetFound = false;
     private bool canUpdateMarkers = false;
 
+    private bool CanNotSpawnClickHereToAnswerFirstQuestionAnymore = false;
     // Particle System references
     [SerializeField] private List<ParticleSystem> childSystems = new List<ParticleSystem>(); // Initialize list
 
@@ -356,10 +357,12 @@ public class ControlTimeWithDistance : MonoBehaviour
     {
         if (WalkingInstructionsCanvasGroup != null)
         {
-            StartCoroutine(ExtensionMethods.FadeCanvasGroup(WalkingInstructionsCanvasGroup, true, 1.6f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(WalkingInstructionsCanvasGroup, true, 2f));
             Invoke(nameof(HideWalkInstructions), 6.5f);
         }
     }
+
+    
 
     private void HideWalkInstructions()
     {
@@ -371,7 +374,7 @@ public class ControlTimeWithDistance : MonoBehaviour
 
     private void ShowTutorialInformation()
     {
-    
+        if (CanNotSpawnClickHereToAnswerFirstQuestionAnymore) return;
         if (questionManager != null)
         {
             // Assuming PingOpenQuestionPanelButton is a coroutine or method on QuestionManager
@@ -381,14 +384,17 @@ public class ControlTimeWithDistance : MonoBehaviour
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(TutorialCanvasGroup, true, 1.4f));
         }
+        CanNotSpawnClickHereToAnswerFirstQuestionAnymore = true;
     }
 
     public void HideTutorialInformation()
     {
         if (TutorialCanvasGroup != null)
         {
-            StartCoroutine(ExtensionMethods.FadeCanvasGroup(TutorialCanvasGroup, false, 1.5f));
+            StartCoroutine(ExtensionMethods.FadeCanvasGroup(TutorialCanvasGroup, false, 0.5f));
         }
+        TutorialCanvasGroup.gameObject.SetActive(false);
+
     }
 
     // --- Particle Scaling Helpers ---
