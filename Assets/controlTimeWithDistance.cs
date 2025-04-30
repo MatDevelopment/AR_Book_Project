@@ -204,8 +204,9 @@ public class ControlTimeWithDistance : MonoBehaviour
         // --- Tutorial Trigger ---
         if (timeByDistance > 5 && Time.time > timeThatTargetWasFound + waitTimequixkFixForTutorialText && !hasShownTutorialText)
         {
-            Invoke(nameof(ShowTutorialInformation), 1.8f);
             hasShownTutorialText = true;
+            Invoke(nameof(ShowTutorialInformation), 1.8f);
+           
         }
 
         // --- UI Updates ---
@@ -370,12 +371,13 @@ public class ControlTimeWithDistance : MonoBehaviour
 
     private void ShowTutorialInformation()
     {
+    
         if (questionManager != null)
         {
             // Assuming PingOpenQuestionPanelButton is a coroutine or method on QuestionManager
             questionManager.StartCoroutine(questionManager.PingOpenQuestionPanelButton());
         }
-        if (TutorialCanvasGroup != null)
+        if (TutorialCanvasGroup != null )
         {
             StartCoroutine(ExtensionMethods.FadeCanvasGroup(TutorialCanvasGroup, true, 1.4f));
         }

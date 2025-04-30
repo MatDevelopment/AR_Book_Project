@@ -52,7 +52,7 @@ public class UI_BigBang : MonoBehaviour
         }
         else if (inputtime > 0.1f && inputtime <= 2.1f)
         {
-            information = "1 nanosekund - Universet er en ekstremt varm suppe af elemæntar partikler såsom Kvarker og Elektroner";
+            information = "1 nanosekund - Universet er en ekstrem varm suppe af elemæntar partikler såsom Kvarker og Elektroner";
         }
 
         else if (inputtime > 2.5f && inputtime <= 4.2f)

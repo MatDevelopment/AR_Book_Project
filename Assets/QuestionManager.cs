@@ -343,6 +343,7 @@ public class QuestionManager : MonoBehaviour
     {
         afterQuizUserAnswerText.text = "";
         afterQuizCorrectAnswerText.text = "";
+        afterQuizQuestionText.text = "";
     }
     public IEnumerator PingOpenQuestionPanelButton()
     {
