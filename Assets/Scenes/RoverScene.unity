@@ -9767,26 +9767,26 @@ MonoBehaviour:
   finishButton: {fileID: 1563127296}
   artifacts:
   - name: Cheyava Falls
-    description: "Sten viser tegn p\xE5 tidligere liv, med ore af kalk"
-    chemicalProperties: Calcium Sulfat, Jern, Fosfat
-    biosignature: Typiske biprodukter af kulstof
+    description: "Sten viser tegn p\xE5 tidligere vand, p\xE5 dens slidte kanter"
+    chemicalProperties: Salt og Kalk
+    biosignature: Typiske biprodukter af vand
     geographicProperties: Jezero Krater - tidligere flydende vand
   - name: Cumberland
     description: Indeholder lange kulstof molekyler, som er tidlige byggesten for
       liv
-    chemicalProperties: Decan, Undecan, Dodecan
-    biosignature: Fedtsyre molekyler
+    chemicalProperties: Fedtsyre molekyler
+    biosignature: "Lange Kulstofk\xE6der"
     geographicProperties: "Yellowknife Bay - et tidligere s\xF8bund"
   - name: Silver Mountain
-    description: "F\xF8rste sten af Mars' grundfjeld"
-    chemicalProperties: Pyroxen
+    description: Sten af Mars' grundfjeld
+    chemicalProperties: Krystaller, salt og ler
     biosignature: "Magmatisk bjergart - tegn p\xE5 lava"
     geographicProperties: Jezero Krater - tidligere flydende vand
   artifactHints:
   - artifactName: Cheyava Falls
-    hintText: Biprodukter af Liv
+    hintText: Slidte Kanter
   - artifactName: Cumberland
-    hintText: Fedtsyre
+    hintText: Fedtsyrer
   - artifactName: Silver Mountain
     hintText: "S\xF8bund"
   hintTexts:
