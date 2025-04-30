@@ -52,12 +52,13 @@ public class DrillMovement1 : MonoBehaviour
 
     private void Update()
     {
-        // Smooth movement
-        Vector3 currentPosition = transform.position;
-        float newY = Mathf.Lerp(currentPosition.y, targetY, Time.deltaTime * moveSpeed);
+        
 
         if (_isResettingPosition == false)
         {
+            // Smooth movement
+            Vector3 currentPosition = transform.position;
+            float newY = Mathf.Lerp(currentPosition.y, targetY, Time.deltaTime * moveSpeed);
             // Optional: Add drill vibration
             float shakeStrength = 0.001f;
             if (Mathf.Abs(targetY - currentPosition.y) > 0.001f)
@@ -167,6 +168,7 @@ public class DrillMovement1 : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         _spawnDrill.ResetDrillPosition();
+        startPosition = transform.position;
         
         yield return new WaitForSeconds(2);
         _isResettingPosition = false;

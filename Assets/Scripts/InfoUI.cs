@@ -12,6 +12,9 @@ public class InfoUI : MonoBehaviour
 {
     [SerializeField] private DrillMovement1 _drillMovement1;
     [SerializeField] private GameObject drillGameobject;
+    [SerializeField] private GameObject dig1_button;
+    [SerializeField] private GameObject dig2_button;
+    [SerializeField] private GameObject resetEarthAndDrill_button;
     
     // Layer Transition Text UI
     [SerializeField] private GameObject LayerTransitionTextUI;
@@ -237,7 +240,10 @@ public class InfoUI : MonoBehaviour
                 StartCoroutine(ShowUIForDuration_NoTextEdit(EndingTextGameobject, 10f));
                 _audioManager.Play("ExplosionSound");
                 EnableIconsAndTexts(false, elementIcons, elementTexts);
-                Destroy(drillGameobject);    // <------------------------- END GAME HEEEEEEEEEEEEERE <----------------------------- //
+                dig1_button.SetActive(false);
+                dig2_button.SetActive(false);
+                resetEarthAndDrill_button.SetActive(false);
+                drillGameobject.SetActive(false);    // <------------------------- END GAME HEEEEEEEEEEEEERE <----------------------------- //
                 break;
         }
     }

@@ -313,18 +313,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 340832445272277718}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &33804277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,18 +731,6 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 109317727}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 340832445272277718}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1220,6 +1196,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _drillMovement1: {fileID: 2737326523155412186}
   drillGameobject: {fileID: 8861915550028034999}
+  dig1_button: {fileID: 109317727}
+  dig2_button: {fileID: 33804274}
+  resetEarthAndDrill_button: {fileID: 1125689753}
   LayerTransitionTextUI: {fileID: 2129836293}
   PeriodicElementsUI: {fileID: 1620800026}
   temperatureUItext: {fileID: 689842579}
@@ -9969,12 +9948,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129836293}
   m_CullTransparentMesh: 1
---- !u!1 &340832445272277718 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6882916162743582716, guid: 64bbccbc7d14b97438833b88efff26c5,
-    type: 3}
-  m_PrefabInstance: {fileID: 8861915550028034998}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2737326523155412186 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8490224267841467490, guid: 64bbccbc7d14b97438833b88efff26c5,
@@ -10348,12 +10321,12 @@ PrefabInstance:
     - target: {fileID: 7547383781447523298, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
-      value: 0.2333138
+      value: 0.009709477
       objectReference: {fileID: 0}
     - target: {fileID: 7547383781447523298, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.11212158
+      value: 0.021209717
       objectReference: {fileID: 0}
     - target: {fileID: 7771026853625998507, guid: 64bbccbc7d14b97438833b88efff26c5,
         type: 3}
@@ -10449,6 +10422,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8861915550028035000}
+    - targetCorrespondingSourceObject: {fileID: 397364924712770170, guid: 64bbccbc7d14b97438833b88efff26c5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8861915550028035004}
   m_SourcePrefab: {fileID: 100100000, guid: 64bbccbc7d14b97438833b88efff26c5, type: 3}
 --- !u!1 &8861915550028034999 stripped
 GameObject:
@@ -10553,6 +10530,69 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8861915550028035004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861915550028034999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6621c70c365d3724e92b8a5fd86c4ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _drillMovement1: {fileID: 2737326523155412186}
+  drillGameobject: {fileID: 8861915550028034999}
+  dig1_button: {fileID: 0}
+  dig2_button: {fileID: 0}
+  resetEarthAndDrill_button: {fileID: 0}
+  LayerTransitionTextUI: {fileID: 2129836293}
+  PeriodicElementsUI: {fileID: 1620800026}
+  temperatureUItext: {fileID: 689842579}
+  depthUItext: {fileID: 1207686884}
+  crust_elementIcons:
+  - {fileID: 64040505}
+  - {fileID: 826314283}
+  - {fileID: 2117606706}
+  crust_elementText:
+  - {fileID: 964883276}
+  - {fileID: 1550486259}
+  - {fileID: 545355346}
+  upperMantle_elementIcons:
+  - {fileID: 1645419253}
+  - {fileID: 842438302}
+  - {fileID: 254284773}
+  upperMantle_elementText:
+  - {fileID: 1572280141}
+  - {fileID: 812228574}
+  - {fileID: 1362591753}
+  mantle_elementIcons:
+  - {fileID: 1688470673}
+  - {fileID: 1558932988}
+  - {fileID: 584516654}
+  mantle_elementText:
+  - {fileID: 480126371}
+  - {fileID: 246276683}
+  - {fileID: 1779963658}
+  outerCore_elementIcons:
+  - {fileID: 1582808464}
+  - {fileID: 1994892065}
+  - {fileID: 1580167946}
+  outerCore_elementText:
+  - {fileID: 1864345546}
+  - {fileID: 601415995}
+  - {fileID: 399971975}
+  innerCore_elementIcons:
+  - {fileID: 2040020453}
+  - {fileID: 22052291}
+  - {fileID: 215604154}
+  innerCore_elementText:
+  - {fileID: 1182875987}
+  - {fileID: 1288642200}
+  - {fileID: 1492181641}
+  _audioManager: {fileID: 596033374}
+  EndingTextGameobject: {fileID: 1290837623}
 --- !u!20 &9167341405107542569 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2254410361878617481, guid: 64bbccbc7d14b97438833b88efff26c5,
